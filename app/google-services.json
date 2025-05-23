@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "292287364842",
+    "firebase_url": "https://sistema-de-comandas-dde8d-default-rtdb.firebaseio.com",
+    "project_id": "sistema-de-comandas-dde8d",
+    "storage_bucket": "sistema-de-comandas-dde8d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292287364842:android:8fd13b125ef7e80dc1a193",
+        "android_client_info": {
+          "package_name": "com.example.sistemadecomandas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292287364842-5a6o454g4vtaqf2iqhtm8vnlmqd765q5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sistemadecomandas",
+            "certificate_hash": "22b88645ba0be4562e3910fc87d4f53e17bcb494"
+          }
+        },
+        {
+          "client_id": "292287364842-jd4v5cido2fo4gufv5csmtcr57bp41mk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ-KSt03Z0B-_RVNpQ2HWOIsalmcQ4QZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "292287364842-jd4v5cido2fo4gufv5csmtcr57bp41mk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
