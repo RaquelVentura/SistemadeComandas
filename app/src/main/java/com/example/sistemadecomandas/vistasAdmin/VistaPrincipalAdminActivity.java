@@ -3,6 +3,7 @@ package com.example.sistemadecomandas.vistasAdmin;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.example.sistemadecomandas.R;
 import com.google.android.material.snackbar.Snackbar;
@@ -25,7 +26,7 @@ public class VistaPrincipalAdminActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Toast.makeText(this, "Bienvenido Admin", Toast.LENGTH_SHORT).show();
         binding = ActivityVistaPrincipalAdminBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
