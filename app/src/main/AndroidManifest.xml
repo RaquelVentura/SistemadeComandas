@@ -13,16 +13,31 @@
         android:theme="@style/Theme.SistemaDeComandas"
         tools:targetApi="31">
         <activity
-            android:name=".MenuPrincipalActivity"
+            android:name=".vistasMeseros.VistaPrincipalMeserosActivity"
+            android:exported="false"
+            android:label="@string/title_activity_vista_principal_meseros"
+            android:theme="@style/Theme.SistemaDeComandas.NoActionBar" />
+        <activity
+            android:name=".vistasAdmin.VistaPrincipalAdminActivity"
+            android:exported="false"
+            android:label="@string/title_activity_vista_principal_admin"
+            android:theme="@style/Theme.SistemaDeComandas.NoActionBar" />
+        <activity
+            android:name=".vistasCocineros.VistaPrincipalCocineros"
+            android:exported="false"
+            android:label="@string/title_activity_vista_principal_cocineros"
+            android:theme="@style/Theme.SistemaDeComandas.NoActionBar" />
+        <activity
+            android:name=".vistasAdmin.MenuPrincipalActivity"
             android:exported="false" />
         <activity
-            android:name=".LogImActivity"
+            android:name=".login.LogImActivity"
             android:exported="false" />
         <activity
-            android:name=".RegistroActivity"
+            android:name=".vistasAdmin.RegistroActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".login.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
