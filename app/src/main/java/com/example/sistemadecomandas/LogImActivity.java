@@ -35,8 +35,6 @@ import java.util.concurrent.Executors;
 
 public class LogImActivity extends AppCompatActivity {
     private Button btnACeptar, btnGoogle;
-    private TextView btnAbrirRegistro;
-
     private EditText txtInicioEmail, txtInicioPass;
     private FirebaseAuth firebaseAuth;
     private CredentialManager credentialManager;
@@ -53,18 +51,9 @@ public class LogImActivity extends AppCompatActivity {
         txtInicioEmail = findViewById(R.id.txtInicioEmail);
         txtInicioPass = findViewById(R.id.txtInicioPassword);
         btnACeptar = findViewById(R.id.btnAceptar);
-        btnAbrirRegistro = findViewById(R.id.btnAbrirRegistro);
         btnGoogle = findViewById(R.id.btnLoginWithGoogle);
         credentialManager = CredentialManager.create(this);
         firebaseAuth = FirebaseAuth.getInstance();
-
-        btnAbrirRegistro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), RegistroActivity.class);
-                startActivity(intent);
-            }
-        });
 
         btnACeptar.setOnClickListener(new View.OnClickListener() {
             @Override
