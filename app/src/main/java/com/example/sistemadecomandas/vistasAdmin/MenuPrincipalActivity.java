@@ -1,9 +1,7 @@
-package com.example.sistemadecomandas;
-import android.content.Intent;
+package com.example.sistemadecomandas.vistasAdmin;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +9,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentContainerView;
+
+import com.example.sistemadecomandas.R;
 
 public class MenuPrincipalActivity extends AppCompatActivity {
     private Button btnIniciar;

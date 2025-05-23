@@ -1,4 +1,4 @@
-package com.example.sistemadecomandas;
+package com.example.sistemadecomandas.login;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -7,6 +7,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentContainerView;
+
+import com.example.sistemadecomandas.R;
 
 public class MainActivity extends AppCompatActivity {
     private FragmentContainerView fragmentContainerView;

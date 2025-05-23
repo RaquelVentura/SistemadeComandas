@@ -1,4 +1,5 @@
-package com.example.sistemadecomandas;
+package com.example.sistemadecomandas.login;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CancellationSignal;
@@ -6,9 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -24,104 +23,91 @@ import androidx.credentials.GetCredentialRequest;
 import androidx.credentials.GetCredentialResponse;
 import androidx.credentials.exceptions.GetCredentialException;
 
+import com.example.sistemadecomandas.vistasAdmin.MenuPrincipalActivity;
+import com.example.sistemadecomandas.R;
+import com.example.sistemadecomandas.vistasCocineros.VistaPrincipalCocineros;
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
 import java.util.concurrent.Executors;
 
-
-public class RegistroActivity extends AppCompatActivity {
-    private VideoView videoView;
-    private EditText txtEmail, txtPassword;
-    private Button btnRegister, btnLoginWithGoogle;
-    private ImageButton btnVolverLogin;
+public class LogImActivity extends AppCompatActivity {
+    private Button btnACeptar, btnGoogle;
+    private EditText txtInicioEmail, txtInicioPass;
     private FirebaseAuth firebaseAuth;
     private CredentialManager credentialManager;
-    public static final int RC_SING_INT = 2001;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_registro);
+        setContentView(R.layout.activity_log_im);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        txtEmail = findViewById(R.id.txtEmail);
-        txtPassword = findViewById(R.id.txtPassword);
-
-        btnRegister = findViewById(R.id.btnRegister);
-        btnLoginWithGoogle = findViewById(R.id.btnLoginWithGoogle);
-        btnVolverLogin = findViewById(R.id.btnVolverVistaLogin);
-        //videoView = view.findViewById(R.id.fondo);
+        txtInicioEmail = findViewById(R.id.txtInicioEmail);
+        txtInicioPass = findViewById(R.id.txtInicioPassword);
+        btnACeptar = findViewById(R.id.btnAceptar);
+        btnGoogle = findViewById(R.id.btnLoginWithGoogle);
+        credentialManager = CredentialManager.create(this);
         firebaseAuth = FirebaseAuth.getInstance();
-        credentialManager = CredentialManager.create(getBaseContext());
 
-        btnLoginWithGoogle.setOnClickListener(new View.OnClickListener() {
+        btnACeptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RegisterGoogle();
+                iniciarSesionVerificada();
+            }
+        });
+        btnGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RegisterGoogleLonIn();
             }
         });
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RegisterUserAutentification();
-            }
-        });
-        btnVolverLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), LogImActivity.class);
-                startActivity(intent);
-            }
-        });
     }
-    private void RegisterUserAutentification() {
-        String correo = txtEmail.getText().toString().trim();
-        String pass = txtPassword.getText().toString().trim();
+    private void iniciarSesionVerificada(){
+        String correo = txtInicioEmail.getText().toString().trim();
+        String pass = txtInicioPass.getText().toString().trim();
 
         if (correo.isEmpty() || pass.isEmpty()) {
             Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
-        } else if (pass.length() < 6) {
-            Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
         } else {
-            firebaseAuth.createUserWithEmailAndPassword(correo, pass).addOnCompleteListener(task -> {
+            firebaseAuth = FirebaseAuth.getInstance();
+
+            firebaseAuth.signInWithEmailAndPassword(correo, pass).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    FirebaseUser usuarioCreado = firebaseAuth.getCurrentUser();
-                    if (usuarioCreado != null) {
-                        usuarioCreado.sendEmailVerification().addOnCompleteListener(task1 -> {
-                            if (task1.isSuccessful()) {
-                                Toast.makeText(this, "Se envió un correo de verificación", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(this, "Fallo el envío de verificación", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        Toast.makeText(this, "Usuario creado correctamente", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(this,MenuPrincipalActivity.class);
+                    FirebaseUser usuarioLogueado = firebaseAuth.getCurrentUser();
+                    if (usuarioLogueado != null) {
+                        Intent intent = new Intent(getBaseContext(), VistaPrincipalCocineros.class);
+                        startActivity(intent);
+                    } else if (usuarioLogueado == null){
+                        Toast.makeText(this, "Inicio de sesión correcto", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getBaseContext(), VistaPrincipalCocineros.class);
                         startActivity(intent);
                     }
                 } else {
                     String error = task.getException().getMessage();
-                    if (error != null && error.contains("already in use")) {
-                        Toast.makeText(this, "Ya existe cuenta con ese correo", Toast.LENGTH_SHORT).show();
+                    if (error != null && error.contains("Contraseña no válida")) {
+                        Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
+                    } else if (error != null && error.contains("There is no user record")) {
+                        Toast.makeText(this, "No existe una cuenta con ese correo", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(this, "Error: " + error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Error al iniciar sesión: " + error, Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
     }
-
-    private void RegisterGoogle(){
+    private void RegisterGoogleLonIn(){
         GetGoogleIdOption getGoogleIdOption = new GetGoogleIdOption
                 .Builder()
-                .setFilterByAuthorizedAccounts(false)
+                .setFilterByAuthorizedAccounts(true)
                 .setServerClientId("292287364842-jd4v5cido2fo4gufv5csmtcr57bp41mk.apps.googleusercontent.com")
                 .build();
         GetCredentialRequest request = new GetCredentialRequest.Builder()
@@ -135,7 +121,6 @@ public class RegistroActivity extends AppCompatActivity {
                     public void onResult(GetCredentialResponse getCredentialResponse) {
                         handleSignIn(getCredentialResponse.getCredential());
                     }
-
                     @Override
                     public void onError(@NonNull GetCredentialException e) {
                         Log.e("error" , e.getMessage());
@@ -155,19 +140,21 @@ public class RegistroActivity extends AppCompatActivity {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
+                        FirebaseUser usuario = firebaseAuth.getCurrentUser();
                         if (isNewUser) {
-                            Log.d("exito", "USUARIO NUEVO REGISTRADO");
+                            Log.d("RegistroGoogle", "Usuario nuevo creado");
                             Intent intent = new Intent(this, MenuPrincipalActivity.class);
                             startActivity(intent);
                         } else {
-                            Log.d("info", "Usuario ya existía, no se avanza a Activity2");
-                            Toast.makeText(this, "Ya existe una cuenta con ese correo", Toast.LENGTH_LONG).show();
+                            Log.d("LoginGoogle", "Usuario ya registrado");
+                            Intent intent = new Intent(getBaseContext(), VistaPrincipalCocineros.class);
+                            startActivity(intent);
                         }
                     } else {
-                        Log.d("error", "fallo la autenticacion");
-                        Toast.makeText(this, "Error en la autenticación con Google", Toast.LENGTH_SHORT).show();
+                        Log.e("GoogleAuth", "Error en autenticación: " + task.getException().getMessage());
+                        Toast.makeText(this, "Error al autenticar con Google", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
