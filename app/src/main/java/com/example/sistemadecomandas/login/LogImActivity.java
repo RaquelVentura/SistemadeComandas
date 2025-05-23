@@ -23,8 +23,8 @@ import androidx.credentials.GetCredentialRequest;
 import androidx.credentials.GetCredentialResponse;
 import androidx.credentials.exceptions.GetCredentialException;
 
-import com.example.sistemadecomandas.vistasAdmin.MenuPrincipalActivity;
 import com.example.sistemadecomandas.R;
+import com.example.sistemadecomandas.vistasAdmin.VistaPrincipalAdminActivity;
 import com.example.sistemadecomandas.vistasCocineros.VistaPrincipalCocineros;
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
@@ -84,11 +84,11 @@ public class LogImActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     FirebaseUser usuarioLogueado = firebaseAuth.getCurrentUser();
                     if (usuarioLogueado != null) {
-                        Intent intent = new Intent(getBaseContext(), VistaPrincipalCocineros.class);
+                        Intent intent = new Intent(getBaseContext(), VistaPrincipalAdminActivity.class);
                         startActivity(intent);
                     } else if (usuarioLogueado == null){
                         Toast.makeText(this, "Inicio de sesión correcto", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getBaseContext(), VistaPrincipalCocineros.class);
+                        Intent intent = new Intent(getBaseContext(), VistaPrincipalAdminActivity.class);
                         startActivity(intent);
                     }
                 } else {
@@ -104,6 +104,7 @@ public class LogImActivity extends AppCompatActivity {
             });
         }
     }
+
     private void RegisterGoogleLonIn(){
         GetGoogleIdOption getGoogleIdOption = new GetGoogleIdOption
                 .Builder()
@@ -145,7 +146,7 @@ public class LogImActivity extends AppCompatActivity {
                         FirebaseUser usuario = firebaseAuth.getCurrentUser();
                         if (isNewUser) {
                             Log.d("RegistroGoogle", "Usuario nuevo creado");
-                            Intent intent = new Intent(this, MenuPrincipalActivity.class);
+                            Intent intent = new Intent(this, LogImActivity.class);
                             startActivity(intent);
                         } else {
                             Log.d("LoginGoogle", "Usuario ya registrado");
