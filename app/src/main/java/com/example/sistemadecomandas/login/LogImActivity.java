@@ -42,11 +42,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.concurrent.Executors;
 
 public class LogImActivity extends AppCompatActivity {
-    private Button btnACeptar, btnGoogle;
+    private Button btnACeptar;
     private EditText txtInicioEmail, txtInicioPass;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
-    private CredentialManager credentialManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,8 +59,6 @@ public class LogImActivity extends AppCompatActivity {
         txtInicioEmail = findViewById(R.id.txtInicioEmail);
         txtInicioPass = findViewById(R.id.txtInicioPassword);
         btnACeptar = findViewById(R.id.btnAceptar);
-        btnGoogle = findViewById(R.id.btnLoginWithGoogle);
-        credentialManager = CredentialManager.create(this);
         firebaseAuth = FirebaseAuth.getInstance();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
@@ -72,13 +69,6 @@ public class LogImActivity extends AppCompatActivity {
                 iniciarSesionVerificada();
             }
         });
-        btnGoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //RegisterGoogleLonIn();
-            }
-        });
-
     }
     private void iniciarSesionVerificada(){
         String correo = txtInicioEmail.getText().toString().trim();
@@ -87,118 +77,81 @@ public class LogImActivity extends AppCompatActivity {
         if (correo.isEmpty() || pass.isEmpty()) {
             Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
         } else {
-            firebaseAuth.signInWithEmailAndPassword(correo, pass).addOnCompleteListener(task -> {
-
-                if (task.isSuccessful()) {
-                    FirebaseUser usuarioLogueado = firebaseAuth.getCurrentUser();
-                    if (usuarioLogueado != null) {
-                        String uid = usuarioLogueado.getUid();
-                        if (uid.equals("7oRtijqE3lR87YJLLAe0iv2ZLI52")) {
-                            startActivity(new Intent(getBaseContext(), VistaPrincipalAdminActivity.class));
-                            finish();
-                        }
-                        else {
-                            databaseReference.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists()) {
-                                        String rol = snapshot.child("rol").getValue(String.class);
-                                        if (rol != null) {
-                                            switch (rol.toLowerCase()) {
-                                                case "cocinero":
-                                                    startActivity(new Intent(getBaseContext(), VistaPrincipalCocineros.class));
-                                                    break;
-                                                case "mesero":
-                                                    startActivity(new Intent(getBaseContext(), VistaPrincipalMeserosActivity.class));
-                                                    break;
-                                                default:
-                                                    Toast.makeText(LogImActivity.this, "Rol no reconocido", Toast.LENGTH_SHORT).show();
-                                            }
-                                            finish();
-                                        } else {
-                                            Toast.makeText(LogImActivity.this, "No se encontró el rol del usuario", Toast.LENGTH_SHORT).show();
-                                        }
-                                    } else {
-                                        Toast.makeText(LogImActivity.this, "No se encontró información del usuario", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                    Toast.makeText(LogImActivity.this, "Error al leer la base de datos", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-
-                    }
-                }
-                        else {
-                    String error = task.getException().getMessage();
-                    if (error != null && error.contains("Contraseña no válida")) {
-                        Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
-                    } else if (error != null && error.contains("There is no user record")) {
-                        Toast.makeText(this, "No existe una cuenta con ese correo", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(this, "Error al iniciar sesión: " + error, Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
-    }
-/*
-    private void RegisterGoogleLonIn(){
-        GetGoogleIdOption getGoogleIdOption = new GetGoogleIdOption
-                .Builder()
-                .setFilterByAuthorizedAccounts(true)
-                .setServerClientId("292287364842-jd4v5cido2fo4gufv5csmtcr57bp41mk.apps.googleusercontent.com")
-                .build();
-        GetCredentialRequest request = new GetCredentialRequest.Builder()
-                .addCredentialOption(getGoogleIdOption)
-                .build();
-        credentialManager.getCredentialAsync(
-                getBaseContext(), request, new CancellationSignal(),
-                Executors.newSingleThreadExecutor(),
-                new CredentialManagerCallback<GetCredentialResponse, GetCredentialException>() {
-                    @Override
-                    public void onResult(GetCredentialResponse getCredentialResponse) {
-                        handleSignIn(getCredentialResponse.getCredential());
-                    }
-                    @Override
-                    public void onError(@NonNull GetCredentialException e) {
-                        Log.e("error" , e.getMessage());
-                    }
-                }
-        );
-    }
-    private void handleSignIn(Credential credential) {
-        if (credential instanceof CustomCredential){
-            CustomCredential customCredential = (CustomCredential) credential;
-            Bundle credentialData = customCredential.getData();
-            GoogleIdTokenCredential googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credentialData);
-            firebaseAuthWithGoogle(googleIdTokenCredential.getIdToken());
-        }
-    }
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
-                        FirebaseUser usuario = firebaseAuth.getCurrentUser();
-                        if (isNewUser) {
-                            Log.d("RegistroGoogle", "Usuario nuevo creado");
-                            Intent intent = new Intent(this, LogImActivity.class);
-                            startActivity(intent);
+            firebaseAuth.signInWithEmailAndPassword(correo, pass)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            FirebaseUser usuarioLogueado = firebaseAuth.getCurrentUser();
+                            if (usuarioLogueado != null) {
+                                String uid = usuarioLogueado.getUid();
+                                redireccionUID(usuarioLogueado);
+                            }
                         } else {
-                            Log.d("LoginGoogle", "Usuario ya registrado");
-                            Intent intent = new Intent(getBaseContext(), VistaPrincipalCocineros.class);
-                            startActivity(intent);
+                            manejarErroresDeLogin(task.getException().getMessage());
                         }
-                    } else {
-                        Log.e("GoogleAuth", "Error en autenticación: " + task.getException().getMessage());
-                        Toast.makeText(this, "Error al autenticar con Google", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    });
+        }
     }
-*/
+    private void redireccionUID(FirebaseUser usuario) {
+        String uid = usuario.getUid();
+        if (uid.equals("7oRtijqE3lR87YJLLAe0iv2ZLI52")) {
+            redirigir(VistaPrincipalAdminActivity.class);
+        } else {
+            redirigirPorRol(uid);
+        }
+    }
+    private void redirigirPorRol(String uid) {
+        databaseReference.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()) {
+                    mostrarToast("No se encontró información del usuario");
+                    return;
+                }
+                String rol = snapshot.child("rol").getValue(String.class);
+                if (rol == null) {
+                    mostrarToast("No se encontró el rol del usuario");
+                    return;
+                }
+                switch (rol.toLowerCase()) {
+                    case "cocinero":
+                        redirigir(VistaPrincipalCocineros.class);
+                        break;
+                    case "mesero":
+                        redirigir(VistaPrincipalMeserosActivity.class);
+                        break;
+                    default:
+                        mostrarToast("Rol no reconocido");
+                        break;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                mostrarToast("Error al leer la base de datos");
+            }
+        });
+    }
+
+    private void redirigir(Class<?> destino) {
+        Intent intent = new Intent(getBaseContext(), destino);
+        startActivity(intent);
+        finish();
+    }
+    private void mostrarToast(String mensaje) {
+        Toast.makeText(LogImActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+    }
+
+    private void manejarErroresDeLogin(String error) {
+        if (error == null) {
+            mostrarToast("Error desconocido");
+            return;
+        }
+        if (error.contains("Contraseña no válida")) {
+            mostrarToast("Contraseña incorrecta");
+        } else if (error.contains("There is no user record")) {
+            mostrarToast("No existe una cuenta con ese correo");
+        } else {
+            mostrarToast("Error al iniciar sesión: " + error);
+        }
+    }
 }
