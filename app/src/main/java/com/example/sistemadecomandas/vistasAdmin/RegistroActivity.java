@@ -36,7 +36,6 @@ import java.util.concurrent.Executors;
 
 
 public class RegistroActivity extends AppCompatActivity {
-    private VideoView videoView;
     private EditText txtEmail, txtPassword;
     private Button btnRegister, btnLoginWithGoogle;
     private ImageButton btnVolverLogin;

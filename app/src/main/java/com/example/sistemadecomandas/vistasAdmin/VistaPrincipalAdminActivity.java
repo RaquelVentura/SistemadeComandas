@@ -1,5 +1,6 @@
 package com.example.sistemadecomandas.vistasAdmin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -7,6 +8,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.sistemadecomandas.R;
+import com.example.sistemadecomandas.login.LogImActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -23,7 +25,6 @@ public class VistaPrincipalAdminActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityVistaPrincipalAdminBinding binding;
-    private Button btnCerrarSesion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class VistaPrincipalAdminActivity extends AppCompatActivity {
                         .setAnchorView(R.id.fab).show();
             }
         });
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -52,6 +54,20 @@ public class VistaPrincipalAdminActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_vista_principal_admin);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.btnCerrarSesion) {
+                Intent intent = new Intent(this, LogImActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+                return true;
+            } else {
+                return NavigationUI.onNavDestinationSelected(item, navController)
+                        || super.onSupportNavigateUp();
+            }
+        });
     }
 
     @Override
