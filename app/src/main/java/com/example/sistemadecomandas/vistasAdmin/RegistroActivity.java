@@ -96,9 +96,10 @@ public class RegistroActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spRoles.setAdapter(adapter);
     }
-    private String nombre, correo, pass, rol;
+    private String img, nombre, correo, pass, rol;
     FirebaseUser usuarioCreado;
     private void convertirAString(){
+        img = "img_por_defecto_usuario";
         nombre = txtNombre.getText().toString().trim();
         correo = txtEmail.getText().toString().trim();
         pass = txtPassword.getText().toString().trim();
@@ -106,7 +107,7 @@ public class RegistroActivity extends AppCompatActivity {
     }
     private void insertarUsuario(){
         String userId = usuarioCreado.getUid();
-        Usuario nuevoUsuario = new Usuario(userId, nombre, rol);
+        Usuario nuevoUsuario = new Usuario(userId, img, nombre, rol);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference usuarioRef = database.getReference("usuarios");

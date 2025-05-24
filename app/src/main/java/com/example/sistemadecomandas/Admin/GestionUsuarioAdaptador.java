@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sistemadecomandas.Modelos.Usuario;
 import com.example.sistemadecomandas.R;
+import com.example.sistemadecomandas.vistasAdmin.ui.EditarUsuarioFragment;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -70,17 +72,24 @@ public class GestionUsuarioAdaptador extends RecyclerView.Adapter<GestionUsuario
     @Override
     public void onBindViewHolder(@NonNull GestionUsuarioAdaptador.GestionUsuarioVIewHolder holder, int position) {
         Usuario usuarios = dataUsuarios.get(position);
-        //funcion para obtener los datos de la bd
+        holder.lbNombre.setText(usuarios.getNombre());
+        holder.lbRol.setText(usuarios.getRol());
+
+        int resourceId = context.getResources().getIdentifier(
+                usuarios.getImagen(), "drawable", context.getPackageName());
+        holder.imageViewUsuario.setImageResource(resourceId);
+
         holder.btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //EditarUsuarioFragment fragment= EditarUsuarioFragment.newInstance(usuarios);
+                //fragment.show(manager, "EditarUsuario");
             }
         });
         holder.btnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                eliminarUsuario();
             }
         });
     }
@@ -112,13 +121,13 @@ public class GestionUsuarioAdaptador extends RecyclerView.Adapter<GestionUsuario
                     public void onClick(DialogInterface dialog, int i) {
                         ExecutorService service = Executors.newSingleThreadExecutor();
                         service.execute(()->{
-
+                            /*FirebaseDatabase.getInstance()
+                                    .getReference("usuarios")
+                                    .child(usuarios.getId())
+                                    .removeValue();*/
                         });
                     }
                 })
                 .setNegativeButton("no", null).show();
-    }
-    public void editarUsuario(){
-
     }
 }
