@@ -3,106 +3,68 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="@color/cardview_shadow_start_color"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/i">
+    android:layout_height="match_parent">
+
 
     <View
         android:id="@+id/view2"
-        android:layout_width="339dp"
-        android:layout_height="477dp"
+        android:layout_width="350dp"
+        android:layout_height="635dp"
         android:background="@drawable/view_style"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <TextView
         android:id="@+id/textView"
         style="@style/encabezado1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign up"
+        android:text="EDITAR"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.211" />
-
-    <EditText
-        android:id="@+id/txtEmail"
-        style="@style/encabezado2"
-        android:layout_width="285dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="96dp"
-        android:background="@drawable/input_style"
-        android:drawableStart="@drawable/icon_email"
-        android:ems="10"
-        android:hint="Correo Electrónico"
-        android:inputType="textEmailAddress"
-        android:paddingLeft="10dp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textColorHint="#888888"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintVertical_bias="0.115" />
 
     <Button
-        android:id="@+id/btnRegister"
+        android:id="@+id/btnEdit"
         style="@style/styleButton1"
         android:layout_width="285dp"
         android:layout_height="59dp"
-        android:layout_marginBottom="160dp"
-        android:text="SIGN UP"
+        android:text="EDITAR"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/spEditRoles"
+        app:layout_constraintVertical_bias="0.095" />
 
-    <EditText
-        android:id="@+id/txtPassword"
+    <Spinner
+        android:id="@+id/spEditRoles"
         style="@style/encabezado2"
         android:layout_width="285dp"
         android:layout_height="59dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/input_style"
-        android:drawableStart="@drawable/sobre_ic"
         android:ems="10"
-        android:paddingLeft="10dp"
-        android:textAlignment="center"
-        android:hint="Contraseña"
-        android:inputType="textPassword"
-        android:textColor="@color/white"
-        android:textColorHint="#888888"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
-
-    <Spinner
-        android:id="@+id/spRoles"
-        style="@style/encabezado2"
-        android:layout_width="285dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/input_style"
-        android:ems="10"
-        android:textAlignment="center"
         android:paddingLeft="15dp"
+        android:textAlignment="center"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/txtEditNombreUsuario" />
 
     <EditText
-        android:id="@+id/txtNombreUsuario"
+        android:id="@+id/txtEditNombreUsuario"
         style="@style/encabezado2"
         android:layout_width="285dp"
         android:layout_height="59dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="284dp"
         android:background="@drawable/input_style"
         android:drawableStart="@drawable/outline_account_circle_24"
         android:ems="10"
@@ -114,19 +76,29 @@
         android:textColorHint="#888888"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/btnVistaGestionUsuarios"
+        android:id="@+id/btnVolverGestionUsuarios"
         android:layout_width="63dp"
         android:layout_height="37dp"
         android:background="@drawable/view_style"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.101"
+        app:layout_constraintHorizontal_bias="0.181"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.919"
+        app:layout_constraintVertical_bias="0.851"
         app:srcCompat="@android:drawable/ic_menu_revert" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="179dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/img_por_defecto_usuario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
