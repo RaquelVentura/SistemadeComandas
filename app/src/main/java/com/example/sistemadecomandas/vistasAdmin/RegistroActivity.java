@@ -105,7 +105,7 @@ public class RegistroActivity extends AppCompatActivity {
                             }
                         });
                         Toast.makeText(this, "Usuario creado correctamente", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(this,MenuPrincipalActivity.class);
+                        Intent intent = new Intent(this,LogImActivity.class);
                         startActivity(intent);
                     }
                 } else {
@@ -161,7 +161,7 @@ public class RegistroActivity extends AppCompatActivity {
                         boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
                         if (isNewUser) {
                             Log.d("exito", "USUARIO NUEVO REGISTRADO");
-                            Intent intent = new Intent(this, MenuPrincipalActivity.class);
+                            Intent intent = new Intent(this, LogImActivity.class);
                             startActivity(intent);
                         } else {
                             Log.d("info", "Usuario ya existía, no se avanza a Activity2");

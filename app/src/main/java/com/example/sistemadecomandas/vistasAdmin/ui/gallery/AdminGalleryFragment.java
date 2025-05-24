@@ -25,8 +25,6 @@ public class AdminGalleryFragment extends Fragment {
         binding = FragmentAdminGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textGallery;
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

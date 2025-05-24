@@ -27,9 +27,7 @@
             android:exported="false"
             android:label="@string/title_activity_vista_principal_cocineros"
             android:theme="@style/Theme.SistemaDeComandas.NoActionBar" />
-        <activity
-            android:name=".vistasAdmin.MenuPrincipalActivity"
-            android:exported="false" />
+
         <activity
             android:name=".login.LogImActivity"
             android:exported="false" />

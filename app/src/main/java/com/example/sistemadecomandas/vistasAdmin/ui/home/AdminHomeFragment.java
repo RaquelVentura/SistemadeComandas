@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sistemadecomandas.databinding.FragmentAdminGalleryBinding;
-import com.example.sistemadecomandas.databinding.FragmentAdminGalleryBinding;
 
 public class AdminHomeFragment extends Fragment {
 
@@ -24,9 +23,6 @@ public class AdminHomeFragment extends Fragment {
 
         binding = FragmentAdminGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        final TextView textView = binding.textGallery;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
