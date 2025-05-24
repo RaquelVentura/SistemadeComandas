@@ -68,6 +68,15 @@ public class VistaPrincipalAdminActivity extends AppCompatActivity {
                         || super.onSupportNavigateUp();
             }
         });
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("fragment_admin_home")) {
+            String destino = intent.getStringExtra("fragment_admin_home");
+            if ("home".equals(destino)) {
+                NavController navControllerr = Navigation.findNavController(this, R.id.nav_host_fragment_content_vista_principal_admin);
+                navControllerr.navigate(R.id.nav_home);
+            }
+        }
+
     }
 
     @Override

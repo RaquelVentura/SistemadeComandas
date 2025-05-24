@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -24,6 +26,7 @@ import androidx.credentials.GetCredentialRequest;
 import androidx.credentials.GetCredentialResponse;
 import androidx.credentials.exceptions.GetCredentialException;
 
+import com.example.sistemadecomandas.Modelos.Usuario;
 import com.example.sistemadecomandas.R;
 import com.example.sistemadecomandas.login.LogImActivity;
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
@@ -32,13 +35,20 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.Executors;
 
 
 public class RegistroActivity extends AppCompatActivity {
-    private EditText txtEmail, txtPassword;
-    private Button btnRegister, btnLoginWithGoogle;
-    private ImageButton btnVolverLogin;
+    private Spinner spRoles;
+    private List<String> listRoles;
+    private EditText txtNombre, txtEmail, txtPassword;
+    private Button btnRegister;
+    private ImageButton btnVolverVistaGestionUsuarios;
     private FirebaseAuth firebaseAuth;
     private CredentialManager credentialManager;
     public static final int RC_SING_INT = 2001;
@@ -52,49 +62,68 @@ public class RegistroActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        spRoles = findViewById(R.id.spRoles);
+        txtNombre = findViewById(R.id.txtNombreUsuario);
         txtEmail = findViewById(R.id.txtEmail);
         txtPassword = findViewById(R.id.txtPassword);
-
         btnRegister = findViewById(R.id.btnRegister);
-        btnLoginWithGoogle = findViewById(R.id.btnLoginWithGoogle);
-        btnVolverLogin = findViewById(R.id.btnVolverVistaLogin);
-        //videoView = view.findViewById(R.id.fondo);
+        btnVolverVistaGestionUsuarios = findViewById(R.id.btnVistaGestionUsuarios);
         firebaseAuth = FirebaseAuth.getInstance();
         credentialManager = CredentialManager.create(getBaseContext());
 
-        btnLoginWithGoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RegisterGoogle();
-            }
-        });
-
+        LlenarSpinner();
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RegisterUserAutentification();
             }
         });
-        btnVolverLogin.setOnClickListener(new View.OnClickListener() {
+        btnVolverVistaGestionUsuarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), LogImActivity.class);
+                Intent intent = new Intent(getBaseContext(), VistaPrincipalAdminActivity.class);
+                intent.putExtra("fragment_admin_home", "home");
                 startActivity(intent);
             }
         });
     }
-    private void RegisterUserAutentification() {
-        String correo = txtEmail.getText().toString().trim();
-        String pass = txtPassword.getText().toString().trim();
+    private void LlenarSpinner() {
+        List<String> listRoles = Arrays.asList("Cocinero", "Mesero");
 
-        if (correo.isEmpty() || pass.isEmpty()) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item, listRoles
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spRoles.setAdapter(adapter);
+    }
+    private String nombre, correo, pass, rol;
+    FirebaseUser usuarioCreado;
+    private void convertirAString(){
+        nombre = txtNombre.getText().toString().trim();
+        correo = txtEmail.getText().toString().trim();
+        pass = txtPassword.getText().toString().trim();
+        rol = spRoles.getSelectedItem().toString();
+    }
+    private void insertarUsuario(){
+        String userId = usuarioCreado.getUid();
+        Usuario nuevoUsuario = new Usuario(userId, nombre, rol);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference usuarioRef = database.getReference("usuarios");
+        usuarioRef.child(userId).setValue(nuevoUsuario);
+    }
+    private void RegisterUserAutentification() {
+        convertirAString();
+
+        if (nombre.isEmpty()||correo.isEmpty() || pass.isEmpty()) {
             Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
-        } else if (pass.length() < 6) {
+        }
+        if (pass.length() < 6) {
             Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
         } else {
             firebaseAuth.createUserWithEmailAndPassword(correo, pass).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    FirebaseUser usuarioCreado = firebaseAuth.getCurrentUser();
+                    usuarioCreado = firebaseAuth.getCurrentUser();
                     if (usuarioCreado != null) {
                         usuarioCreado.sendEmailVerification().addOnCompleteListener(task1 -> {
                             if (task1.isSuccessful()) {
@@ -104,7 +133,10 @@ public class RegistroActivity extends AppCompatActivity {
                             }
                         });
                         Toast.makeText(this, "Usuario creado correctamente", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(this,LogImActivity.class);
+
+                        insertarUsuario();
+
+                        Intent intent = new Intent(this, VistaPrincipalAdminActivity.class);
                         startActivity(intent);
                     }
                 } else {
@@ -118,59 +150,4 @@ public class RegistroActivity extends AppCompatActivity {
             });
         }
     }
-
-    private void RegisterGoogle(){
-        GetGoogleIdOption getGoogleIdOption = new GetGoogleIdOption
-                .Builder()
-                .setFilterByAuthorizedAccounts(false)
-                .setServerClientId("292287364842-jd4v5cido2fo4gufv5csmtcr57bp41mk.apps.googleusercontent.com")
-                .build();
-        GetCredentialRequest request = new GetCredentialRequest.Builder()
-                .addCredentialOption(getGoogleIdOption)
-                .build();
-        credentialManager.getCredentialAsync(
-                getBaseContext(), request, new CancellationSignal(),
-                Executors.newSingleThreadExecutor(),
-                new CredentialManagerCallback<GetCredentialResponse, GetCredentialException>() {
-                    @Override
-                    public void onResult(GetCredentialResponse getCredentialResponse) {
-                        handleSignIn(getCredentialResponse.getCredential());
-                    }
-
-                    @Override
-                    public void onError(@NonNull GetCredentialException e) {
-                        Log.e("error" , e.getMessage());
-                    }
-                }
-        );
-    }
-    private void handleSignIn(Credential credential) {
-        if (credential instanceof CustomCredential){
-            CustomCredential customCredential = (CustomCredential) credential;
-            Bundle credentialData = customCredential.getData();
-            GoogleIdTokenCredential googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credentialData);
-            firebaseAuthWithGoogle(googleIdTokenCredential.getIdToken());
-        }
-    }
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    if(task.isSuccessful()){
-                        boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
-                        if (isNewUser) {
-                            Log.d("exito", "USUARIO NUEVO REGISTRADO");
-                            Intent intent = new Intent(this, LogImActivity.class);
-                            startActivity(intent);
-                        } else {
-                            Log.d("info", "Usuario ya existía, no se avanza a Activity2");
-                            Toast.makeText(this, "Ya existe una cuenta con ese correo", Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        Log.d("error", "fallo la autenticacion");
-                        Toast.makeText(this, "Error en la autenticación con Google", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
 }

@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sistemadecomandas.Modelos.Usuarios;
+import com.example.sistemadecomandas.Modelos.Usuario;
 import com.example.sistemadecomandas.R;
 
 import java.util.List;
@@ -23,24 +23,24 @@ import java.util.concurrent.Executors;
 
 public class GestionUsuarioAdaptador extends RecyclerView.Adapter<GestionUsuarioAdaptador.GestionUsuarioVIewHolder> {
 
-    private List<Usuarios> dataUsuarios;
+    private List<Usuario> dataUsuarios;
     private Context context;
     private FragmentManager manager;
 
     public GestionUsuarioAdaptador() {
     }
 
-    public GestionUsuarioAdaptador(List<Usuarios> dataUsuarios, Context context, FragmentManager manager) {
+    public GestionUsuarioAdaptador(List<Usuario> dataUsuarios, Context context, FragmentManager manager) {
         this.dataUsuarios = dataUsuarios;
         this.context = context;
         this.manager = manager;
     }
 
-    public List<Usuarios> getDataUsuarios() {
+    public List<Usuario> getDataUsuarios() {
         return dataUsuarios;
     }
 
-    public void setDataUsuarios(List<Usuarios> dataUsuarios) {
+    public void setDataUsuarios(List<Usuario> dataUsuarios) {
         this.dataUsuarios = dataUsuarios;
     }
 
@@ -69,7 +69,7 @@ public class GestionUsuarioAdaptador extends RecyclerView.Adapter<GestionUsuario
 
     @Override
     public void onBindViewHolder(@NonNull GestionUsuarioAdaptador.GestionUsuarioVIewHolder holder, int position) {
-        Usuarios usuarios = dataUsuarios.get(position);
+        Usuario usuarios = dataUsuarios.get(position);
         //funcion para obtener los datos de la bd
         holder.btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
