@@ -18,14 +18,9 @@ public class CocinerosHomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        CocinerosHomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(CocinerosHomeViewModel.class);
 
         binding = FragmentCocinerosHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

@@ -19,8 +19,6 @@ public class AdminGalleryFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        AdminGalleryViewModel galleryViewModel =
-                new ViewModelProvider(this).get(AdminGalleryViewModel.class);
 
         binding = FragmentAdminGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();

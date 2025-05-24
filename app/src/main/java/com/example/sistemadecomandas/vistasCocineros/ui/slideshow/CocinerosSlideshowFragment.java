@@ -18,14 +18,8 @@ public class CocinerosSlideshowFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        CocinerosSlideshowViewModel slideshowViewModel =
-                new ViewModelProvider(this).get(CocinerosSlideshowViewModel.class);
-
         binding = FragmentCocinerosSlideshowBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

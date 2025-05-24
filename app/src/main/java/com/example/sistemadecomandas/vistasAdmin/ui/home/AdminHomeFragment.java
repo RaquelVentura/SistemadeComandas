@@ -18,9 +18,6 @@ public class AdminHomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        AdminHomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(AdminHomeViewModel.class);
-
         binding = FragmentAdminGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         return root;
