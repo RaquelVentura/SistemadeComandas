@@ -93,11 +93,7 @@ public class LogImActivity extends AppCompatActivity {
     }
     private void redireccionUID(FirebaseUser usuario) {
         String uid = usuario.getUid();
-        if (uid.equals("7oRtijqE3lR87YJLLAe0iv2ZLI52")) {
-            redirigir(VistaPrincipalAdminActivity.class);
-        } else {
             redirigirPorRol(uid);
-        }
     }
     private void redirigirPorRol(String uid) {
         databaseReference.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -113,6 +109,9 @@ public class LogImActivity extends AppCompatActivity {
                     return;
                 }
                 switch (rol.toLowerCase()) {
+                    case "administrador":
+                        redirigir(VistaPrincipalAdminActivity.class);
+                        break;
                     case "cocinero":
                         redirigir(VistaPrincipalCocineros.class);
                         break;

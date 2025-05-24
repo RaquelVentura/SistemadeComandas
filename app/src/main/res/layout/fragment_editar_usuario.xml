@@ -1,14 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:background="@color/cardview_shadow_start_color"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".vistasAdmin.ui.EditarUsuarioFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="350dp"
+        android:layout_height="635dp"
+        android:background="@drawable/view_style"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/textView"
+        style="@style/encabezado1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EDITAR"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.115" />
 
-</FrameLayout>
+    <Button
+        android:id="@+id/btnEdit"
+        style="@style/styleButton1"
+        android:layout_width="285dp"
+        android:layout_height="59dp"
+        android:text="EDITAR"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spEditRoles"
+        app:layout_constraintVertical_bias="0.095" />
+
+    <Spinner
+        android:id="@+id/spEditRoles"
+        style="@style/encabezado2"
+        android:layout_width="285dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/input_style"
+        android:ems="10"
+        android:paddingLeft="15dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEditNombreUsuario" />
+
+    <EditText
+        android:id="@+id/txtEditNombreUsuario"
+        style="@style/encabezado2"
+        android:layout_width="285dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="284dp"
+        android:background="@drawable/input_style"
+        android:drawableStart="@drawable/outline_account_circle_24"
+        android:ems="10"
+        android:hint="Nombre"
+        android:inputType="text"
+        android:paddingLeft="10dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textColorHint="#888888"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnVolverGestionUsuarios"
+        android:layout_width="63dp"
+        android:layout_height="37dp"
+        android:background="@drawable/view_style"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.181"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.851"
+        app:srcCompat="@android:drawable/ic_menu_revert" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="179dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/img_por_defecto_usuario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

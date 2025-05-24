@@ -2,13 +2,18 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation3"
-    app:startDestination="@+id/nav_home">
+    android:id="@+id/mobile_navigation2"
+    app:startDestination="@+id/nav_menu">
+    <fragment
+        android:id="@+id/nav_menu"
+        android:name="com.example.sistemadecomandas.vistasAdmin.ui.verMenu.AdminMenuFragment"
+        android:label="Menu"
+        tools:layout="@layout/fragment_admin_menu" />
 
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.sistemadecomandas.vistasAdmin.ui.home.AdminHomeFragment"
-        android:label="@string/menu_home"
+        android:label="Gestion de Usuarios"
         tools:layout="@layout/fragment_admin_home" />
 
     <fragment
@@ -16,10 +21,4 @@
         android:name="com.example.sistemadecomandas.vistasAdmin.ui.gallery.AdminGalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_admin_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.sistemadecomandas.vistasAdmin.ui.slideshow.AdminSlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_admin_slideshow" />
 </navigation>

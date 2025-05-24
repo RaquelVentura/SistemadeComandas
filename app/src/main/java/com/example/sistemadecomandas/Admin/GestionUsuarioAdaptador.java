@@ -86,8 +86,8 @@ public class GestionUsuarioAdaptador extends RecyclerView.Adapter<GestionUsuario
         holder.btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditarUsuarioFragment fragment= EditarUsuarioFragment.newInstance(usuarios);
-                fragment.show(manager, "EditarUsuario");
+                EditarUsuarioFragment editarUsuarioFragment = EditarUsuarioFragment.newInstance(usuarios);
+                editarUsuarioFragment.show(manager, "EditarUsuario");
             }
         });
         holder.btnEliminar.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +127,7 @@ public class GestionUsuarioAdaptador extends RecyclerView.Adapter<GestionUsuario
                 service.execute(() -> {
                     FirebaseDatabase.getInstance()
                             .getReference("usuarios")
-                            .child(usuario.getId()) // ← AHORA sí tienes el objeto
+                            .child(usuario.getId())
                             .removeValue();
                 });
             }

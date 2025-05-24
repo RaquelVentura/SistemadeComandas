@@ -88,7 +88,7 @@ public class RegistroActivity extends AppCompatActivity {
         });
     }
     private void LlenarSpinner() {
-        List<String> listRoles = Arrays.asList("Cocinero", "Mesero");
+        List<String> listRoles = Arrays.asList("Administrador","Cocinero", "Mesero");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, listRoles
@@ -107,7 +107,7 @@ public class RegistroActivity extends AppCompatActivity {
     }
     private void insertarUsuario(){
         String userId = usuarioCreado.getUid();
-        Usuario nuevoUsuario = new Usuario(userId, img, nombre, rol);
+        Usuario nuevoUsuario = new Usuario(userId, img, correo, nombre, rol);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference usuarioRef = database.getReference("usuarios");

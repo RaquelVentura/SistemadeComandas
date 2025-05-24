@@ -66,7 +66,6 @@ public class AdminHomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Manejo de error
             }
         });
     }
