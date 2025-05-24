@@ -77,19 +77,23 @@ public class GestionUsuarioAdaptador extends RecyclerView.Adapter<GestionUsuario
 
         int resourceId = context.getResources().getIdentifier(
                 usuarios.getImagen(), "drawable", context.getPackageName());
-        holder.imageViewUsuario.setImageResource(resourceId);
 
+        if (resourceId != 0) {
+            holder.imageViewUsuario.setImageResource(resourceId);
+        } else {
+            holder.imageViewUsuario.setImageResource(R.drawable.img_por_defecto_usuario);
+        }
         holder.btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //EditarUsuarioFragment fragment= EditarUsuarioFragment.newInstance(usuarios);
-                //fragment.show(manager, "EditarUsuario");
+                EditarUsuarioFragment fragment= EditarUsuarioFragment.newInstance(usuarios);
+                fragment.show(manager, "EditarUsuario");
             }
         });
         holder.btnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                eliminarUsuario();
+                eliminarUsuario(usuarios);
             }
         });
     }
@@ -112,22 +116,21 @@ public class GestionUsuarioAdaptador extends RecyclerView.Adapter<GestionUsuario
             btnEditar = itemView.findViewById(R.id.btnEditarUsuario);
         }
     }
-    public void eliminarUsuario(){
+    public void eliminarUsuario(Usuario usuario){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         alertDialog.setTitle("Mensaje de confirmacion");
         alertDialog.setMessage("Esta seguro de eliminar el registro?");
-        alertDialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        ExecutorService service = Executors.newSingleThreadExecutor();
-                        service.execute(()->{
-                            /*FirebaseDatabase.getInstance()
-                                    .getReference("usuarios")
-                                    .child(usuarios.getId())
-                                    .removeValue();*/
-                        });
-                    }
-                })
-                .setNegativeButton("no", null).show();
+        alertDialog.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                ExecutorService service = Executors.newSingleThreadExecutor();
+                service.execute(() -> {
+                    FirebaseDatabase.getInstance()
+                            .getReference("usuarios")
+                            .child(usuario.getId()) // ← AHORA sí tienes el objeto
+                            .removeValue();
+                });
+            }
+                }).setNegativeButton("no", null).show();
     }
 }
