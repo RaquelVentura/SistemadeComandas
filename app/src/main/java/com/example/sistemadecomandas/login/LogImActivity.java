@@ -26,12 +26,18 @@ import androidx.credentials.exceptions.GetCredentialException;
 import com.example.sistemadecomandas.R;
 import com.example.sistemadecomandas.vistasAdmin.VistaPrincipalAdminActivity;
 import com.example.sistemadecomandas.vistasCocineros.VistaPrincipalCocineros;
+import com.example.sistemadecomandas.vistasMeseros.VistaPrincipalMeserosActivity;
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.Executors;
 
@@ -39,6 +45,7 @@ public class LogImActivity extends AppCompatActivity {
     private Button btnACeptar, btnGoogle;
     private EditText txtInicioEmail, txtInicioPass;
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseReference;
     private CredentialManager credentialManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +64,8 @@ public class LogImActivity extends AppCompatActivity {
         credentialManager = CredentialManager.create(this);
         firebaseAuth = FirebaseAuth.getInstance();
 
+        databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
+
         btnACeptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +75,7 @@ public class LogImActivity extends AppCompatActivity {
         btnGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RegisterGoogleLonIn();
+                //RegisterGoogleLonIn();
             }
         });
 
@@ -78,20 +87,52 @@ public class LogImActivity extends AppCompatActivity {
         if (correo.isEmpty() || pass.isEmpty()) {
             Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
         } else {
-            firebaseAuth = FirebaseAuth.getInstance();
-
             firebaseAuth.signInWithEmailAndPassword(correo, pass).addOnCompleteListener(task -> {
+
                 if (task.isSuccessful()) {
                     FirebaseUser usuarioLogueado = firebaseAuth.getCurrentUser();
                     if (usuarioLogueado != null) {
-                        Intent intent = new Intent(getBaseContext(), VistaPrincipalAdminActivity.class);
-                        startActivity(intent);
-                    } else if (usuarioLogueado == null){
-                        Toast.makeText(this, "Inicio de sesión correcto", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getBaseContext(), VistaPrincipalAdminActivity.class);
-                        startActivity(intent);
+                        String uid = usuarioLogueado.getUid();
+                        if (uid.equals("7oRtijqE3lR87YJLLAe0iv2ZLI52")) {
+                            startActivity(new Intent(getBaseContext(), VistaPrincipalAdminActivity.class));
+                            finish();
+                        }
+                        else {
+                            databaseReference.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.exists()) {
+                                        String rol = snapshot.child("rol").getValue(String.class);
+                                        if (rol != null) {
+                                            switch (rol.toLowerCase()) {
+                                                case "cocinero":
+                                                    startActivity(new Intent(getBaseContext(), VistaPrincipalCocineros.class));
+                                                    break;
+                                                case "mesero":
+                                                    startActivity(new Intent(getBaseContext(), VistaPrincipalMeserosActivity.class));
+                                                    break;
+                                                default:
+                                                    Toast.makeText(LogImActivity.this, "Rol no reconocido", Toast.LENGTH_SHORT).show();
+                                            }
+                                            finish();
+                                        } else {
+                                            Toast.makeText(LogImActivity.this, "No se encontró el rol del usuario", Toast.LENGTH_SHORT).show();
+                                        }
+                                    } else {
+                                        Toast.makeText(LogImActivity.this, "No se encontró información del usuario", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Toast.makeText(LogImActivity.this, "Error al leer la base de datos", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+
                     }
-                } else {
+                }
+                        else {
                     String error = task.getException().getMessage();
                     if (error != null && error.contains("Contraseña no válida")) {
                         Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
@@ -104,7 +145,7 @@ public class LogImActivity extends AppCompatActivity {
             });
         }
     }
-
+/*
     private void RegisterGoogleLonIn(){
         GetGoogleIdOption getGoogleIdOption = new GetGoogleIdOption
                 .Builder()
@@ -159,5 +200,5 @@ public class LogImActivity extends AppCompatActivity {
                     }
                 });
     }
-
+*/
 }
