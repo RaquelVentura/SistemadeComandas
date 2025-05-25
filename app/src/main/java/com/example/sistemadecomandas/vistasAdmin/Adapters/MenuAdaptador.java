@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sistemadecomandas.Modelos.Platillo;
 import com.example.sistemadecomandas.R;
 
 import java.util.List;
@@ -21,12 +22,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MenuAdaptador extends RecyclerView.Adapter<MenuAdaptador.MenuViewHolder> {
-    private List<Orden> dataOrden;
+    private List<Platillo> dataPlatillo;
     private Context context;
     private FragmentManager manager;
 
-    public MenuAdaptador(List<Orden> dataOrden, Context context, FragmentManager manager) {
-        this.dataOrden = dataOrden;
+    public MenuAdaptador(List<Platillo> dataPlatillo, Context context, FragmentManager manager) {
+        this.dataPlatillo = dataPlatillo;
         this.context = context;
         this.manager = manager;
     }
@@ -34,12 +35,12 @@ public class MenuAdaptador extends RecyclerView.Adapter<MenuAdaptador.MenuViewHo
     public MenuAdaptador() {
     }
 
-    public List<Orden> getDataOrden() {
-        return dataOrden;
+    public List<Platillo> getDataPlatillo() {
+        return dataPlatillo;
     }
 
-    public void setDataOrden(List<Orden> dataOrden) {
-        this.dataOrden = dataOrden;
+    public void setDataPlatillo(List<Platillo> dataPlatillo) {
+        this.dataPlatillo = dataPlatillo;
     }
 
     public Context getContext() {
@@ -67,14 +68,14 @@ public class MenuAdaptador extends RecyclerView.Adapter<MenuAdaptador.MenuViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MenuAdaptador.MenuViewHolder holder, int position) {
-        Orden orden = dataOrden.get(position);
-        holder.lbNombrePLatillo.setText(orden.getProducto());
-        holder.lbPrecioPLatillo.setText(orden.getTotalPagar());
+        Platillo Platillo = dataPlatillo.get(position);
+      //  holder.lbNombrePLatillo.setText(Platillo.getProducto());
+      //  holder.lbPrecioPLatillo.setText(Platillo.getTotalPagar());
 
     }
 
     @Override
-    public int getItemCount() {return dataOrden.size();}
+    public int getItemCount() {return dataPlatillo.size();}
     public class MenuViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgFotoPlatillo;
         private TextView lbNombrePLatillo, lbPrecioPLatillo;
@@ -88,18 +89,18 @@ public class MenuAdaptador extends RecyclerView.Adapter<MenuAdaptador.MenuViewHo
             btnEditarCliente = itemView.findViewById(R.id.btnEditarUsuario);
         }
     }
-    public void eliminarOrden(Orden orden){
+    public void eliminarPlatillo(Platillo Platillo){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         alertDialog.setTitle("Mensaje de confirmacion");
-        alertDialog.setMessage("Esta seguro de eliminar esta orden?");
+        alertDialog.setMessage("Esta seguro de eliminar esta Platillo?");
         alertDialog.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int i) {
                 ExecutorService service = Executors.newSingleThreadExecutor();
                 service.execute(() -> {
                     /*FirebaseDatabase.getInstance()
-                            .getReference("orden")
-                            .child(orden.getId())
+                            .getReference("Platillo")
+                            .child(Platillo.getId())
                             .removeValue();*/
                 });
             }

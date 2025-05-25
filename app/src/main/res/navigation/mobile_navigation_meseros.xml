@@ -8,12 +8,6 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.sistemadecomandas.vistasMeseros.ui.home.HomeFragment"
-        android:label="@string/menu_home"
+        android:label="COMANDAS"
         tools:layout="@layout/fragment_meseros_home" />
-
-    <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.sistemadecomandas.vistasMeseros.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_meseros_gallery" />
 </navigation>
