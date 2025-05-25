@@ -3,6 +3,7 @@ package com.example.sistemadecomandas.vistasMeseros;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.example.sistemadecomandas.R;
 import com.google.android.material.snackbar.Snackbar;
@@ -25,19 +26,11 @@ public class VistaPrincipalMeserosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Toast.makeText(this, "Bienvenido mesero", Toast.LENGTH_SHORT).show();
         binding = ActivityVistaPrincipalMeserosBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarVistaPrincipalMeseros.toolbar);
-        binding.appBarVistaPrincipalMeseros.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .setAnchorView(R.id.fab).show();
-            }
-        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
