@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sistemadecomandas.Modelos.Platillo;
 import com.example.sistemadecomandas.R;
+import com.example.sistemadecomandas.vistasAdmin.ui.EditarPlatillosFragment;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
@@ -83,8 +84,8 @@ public class MenuAdaptador extends RecyclerView.Adapter<MenuAdaptador.MenuViewHo
         holder.btnEditarPlatillo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //EditarPlatilloFragment editarPlatilloFragment = EditarPlatilloFragment.newInstance(platillo);
-                //editarPlatilloFragment.show(manager, "EditarPlatillo");
+                EditarPlatillosFragment editarPlatillosFragment = EditarPlatillosFragment.newInstance(platillo); //<---platillo no lo reconoce
+                editarPlatillosFragment.show(manager, "EditarPlatillo");
             }
         });
     }
