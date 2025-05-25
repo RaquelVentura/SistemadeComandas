@@ -21,4 +21,5 @@
         android:name="com.example.sistemadecomandas.vistasAdmin.ui.gallery.AdminGalleryFragment"
         android:label="REPORTES"
         tools:layout="@layout/fragment_admin_gallery" />
+
 </navigation>

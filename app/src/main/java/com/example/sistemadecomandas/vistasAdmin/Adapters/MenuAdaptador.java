@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sistemadecomandas.Modelos.Platillo;
 import com.example.sistemadecomandas.R;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -68,40 +69,55 @@ public class MenuAdaptador extends RecyclerView.Adapter<MenuAdaptador.MenuViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MenuAdaptador.MenuViewHolder holder, int position) {
-        Platillo Platillo = dataPlatillo.get(position);
-      //  holder.lbNombrePLatillo.setText(Platillo.getProducto());
-      //  holder.lbPrecioPLatillo.setText(Platillo.getTotalPagar());
+        Platillo platillo = dataPlatillo.get(position);
+        holder.lbNombrePlatillo.setText(platillo.getnombrePlatillo());
+        holder.lbDescripcion.setText(platillo.getDescripcion());
+        holder.lbPrecioPlatillo.setText(platillo.getPrecio());
+        holder.btnElimianrPlatillo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                //eliminarPlatillo(platillo);
+            }
+        });
+        holder.btnEditarPlatillo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //EditarPlatilloFragment editarPlatilloFragment = EditarPlatilloFragment.newInstance(platillo);
+                //editarPlatilloFragment.show(manager, "EditarPlatillo");
+            }
+        });
     }
 
     @Override
     public int getItemCount() {return dataPlatillo.size();}
     public class MenuViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgFotoPlatillo;
-        private TextView lbNombrePLatillo, lbPrecioPLatillo;
-        private Button btnElimianrCliente, btnEditarCliente;
+        private TextView lbNombrePlatillo, lbPrecioPlatillo, lbDescripcion;
+        private Button btnElimianrPlatillo, btnEditarPlatillo;
         public MenuViewHolder(@NonNull View itemView) {
             super(itemView);
             imgFotoPlatillo = itemView.findViewById(R.id.imgFotoPlatillo);
-            lbNombrePLatillo = itemView.findViewById(R.id.lbNombrePLatillo);
-            lbPrecioPLatillo = itemView.findViewById(R.id.lbPrecioPLatillo);
-            btnElimianrCliente = itemView.findViewById(R.id.btnElimianrUsuario);
-            btnEditarCliente = itemView.findViewById(R.id.btnEditarUsuario);
+            lbNombrePlatillo = itemView.findViewById(R.id.lbNombrePLatillo);
+            lbPrecioPlatillo = itemView.findViewById(R.id.lbPrecioPlatillo);
+            lbDescripcion = itemView.findViewById(R.id.lbDescripcionPlatillo);
+            btnElimianrPlatillo = itemView.findViewById(R.id.btnElimianrPlatillo);
+            btnEditarPlatillo = itemView.findViewById(R.id.btnEditarPlatillo);
         }
     }
-    public void eliminarPlatillo(Platillo Platillo){
+    public void eliminarPlatillo(Platillo platillo){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         alertDialog.setTitle("Mensaje de confirmacion");
-        alertDialog.setMessage("Esta seguro de eliminar esta Platillo?");
+        alertDialog.setMessage("Esta seguro de eliminar esta platillo?");
         alertDialog.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int i) {
                 ExecutorService service = Executors.newSingleThreadExecutor();
                 service.execute(() -> {
-                    /*FirebaseDatabase.getInstance()
-                            .getReference("Platillo")
-                            .child(Platillo.getId())
-                            .removeValue();*/
+                    FirebaseDatabase.getInstance()
+                            .getReference("platillos")
+                            .child(platillo.getIdPlatillo())
+                            .removeValue();
                 });
             }
         }).setNegativeButton("no", null).show();
