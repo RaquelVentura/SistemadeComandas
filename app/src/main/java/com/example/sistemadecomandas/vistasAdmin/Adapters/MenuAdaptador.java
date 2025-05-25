@@ -73,11 +73,11 @@ public class MenuAdaptador extends RecyclerView.Adapter<MenuAdaptador.MenuViewHo
         holder.lbNombrePlatillo.setText(platillo.getnombrePlatillo());
         holder.lbDescripcion.setText(platillo.getDescripcion());
         holder.lbPrecioPlatillo.setText(platillo.getPrecio());
+
         holder.btnElimianrPlatillo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //eliminarPlatillo(platillo);
+                eliminarPlatillo(platillo);
             }
         });
         holder.btnEditarPlatillo.setOnClickListener(new View.OnClickListener() {
