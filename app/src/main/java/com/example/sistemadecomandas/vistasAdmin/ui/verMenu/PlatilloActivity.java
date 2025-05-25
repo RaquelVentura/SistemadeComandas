@@ -52,7 +52,7 @@ public class PlatilloActivity extends AppCompatActivity {
     }
 
     private void llenarSpinner() {
-        List<String> listCategoria = Arrays.asList("Entrada", "Desayuno", "Plato fuerte", "Postre");
+        List<String> listCategoria = Arrays.asList("Entrada", "Desayuno", "Plato fuerte", "Postre", "Bebida");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listCategoria);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spCategoria.setAdapter(adapter);

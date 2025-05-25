@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.sistemadecomandas.Modelos.Usuario;
 import com.example.sistemadecomandas.R;
 import com.example.sistemadecomandas.vistasAdmin.ui.EditarUsuarioFragment;
@@ -72,15 +73,26 @@ public class GestionUsuarioAdaptador extends RecyclerView.Adapter<GestionUsuario
         Usuario usuarios = dataUsuarios.get(position);
         holder.lbNombre.setText(usuarios.getNombre());
         holder.lbRol.setText(usuarios.getRol());
-
-        int resourceId = context.getResources().getIdentifier(
+//ESTO LO REEMPLAZARE
+        /*int resourceId = context.getResources().getIdentifier(
                 usuarios.getImagen(), "drawable", context.getPackageName());
 
         if (resourceId != 0) {
             holder.imageViewUsuario.setImageResource(resourceId);
         } else {
             holder.imageViewUsuario.setImageResource(R.drawable.img_por_defecto_usuario);
+        }*/
+
+        String imagen = usuarios.getImagen();
+        if (imagen != null && !imagen.isEmpty()) {
+            Glide.with(context)
+                    .load(imagen)
+                    .placeholder(R.drawable.img_por_defecto_usuario)
+                    .into(holder.imageViewUsuario);
+        } else {
+            holder.imageViewUsuario.setImageResource(R.drawable.img_por_defecto_usuario);
         }
+
         holder.btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
