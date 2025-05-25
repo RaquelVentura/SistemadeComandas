@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sistemadecomandas.Admin.GestionUsuarioAdaptador;
+import com.example.sistemadecomandas.vistasAdmin.Adapters.GestionUsuarioAdaptador;
 import com.example.sistemadecomandas.Modelos.Usuario;
 
 import com.example.sistemadecomandas.databinding.FragmentAdminHomeBinding;

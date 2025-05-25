@@ -1,4 +1,4 @@
-package com.example.sistemadecomandas.Admin;
+package com.example.sistemadecomandas.vistasAdmin.Adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -28,10 +28,8 @@ public class GestionUsuarioAdaptador extends RecyclerView.Adapter<GestionUsuario
     private List<Usuario> dataUsuarios;
     private Context context;
     private FragmentManager manager;
-
     public GestionUsuarioAdaptador() {
     }
-
     public GestionUsuarioAdaptador(List<Usuario> dataUsuarios, Context context, FragmentManager manager) {
         this.dataUsuarios = dataUsuarios;
         this.context = context;
