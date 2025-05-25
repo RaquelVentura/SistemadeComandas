@@ -30,10 +30,10 @@ public class AdminMenuFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private Button btnNuevoPlatillo;
-    private ImageButton btnCategoriaEntrada, btnCategoriaDesayuno, btnCategoriaPlatoFuerte, btnCategoriaPostre;
+    private ImageButton btnCategoriaEntrada, btnCategoriaDesayuno, btnCategoriaPlatoFuerte, btnCategoriaPostre, btnCategoriaBebida;
     private MenuAdaptador adaptador;
     private List<Platillo> listaPlatillos;
-    private List<Platillo> listaPlatillosOriginal; // <- lista completa sin filtrar
+    private List<Platillo> listaPlatillosOriginal;
 
     public AdminMenuFragment() { }
 
@@ -58,39 +58,39 @@ public class AdminMenuFragment extends Fragment {
         btnCategoriaDesayuno = view.findViewById(R.id.btnDesayuno);
         btnCategoriaPlatoFuerte = view.findViewById(R.id.btnPlatoFuerte);
         btnCategoriaPostre = view.findViewById(R.id.btnPostre);
-
+        btnCategoriaBebida= view.findViewById(R.id.btnBebidas);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         listaPlatillos = new ArrayList<>();
         listaPlatillosOriginal = new ArrayList<>();
 
-        // Adaptador base (todos los platillos)
         adaptador = new MenuAdaptador(listaPlatillos, getContext(), getParentFragmentManager());
         recyclerView.setAdapter(adaptador);
 
         cargarPlatillosDesdeFirebase();
 
-        // Botón para crear nuevo platillo
         btnNuevoPlatillo.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), PlatilloActivity.class);
             startActivity(intent);
         });
 
-        // Botón para filtrar por categoría
+        // Botones para filtrar por categoría
         btnCategoriaEntrada.setOnClickListener(v -> {
-            filtrarPorCategoria("Entrada"); // <- podés cambiar esto a la categoría que necesites
+            filtrarPorCategoria("Entrada");
         });
         btnCategoriaDesayuno.setOnClickListener(v -> {
-            filtrarPorCategoria("Desayuno"); // <- podés cambiar esto a la categoría que necesites
+            filtrarPorCategoria("Desayuno");
         });
         btnCategoriaPlatoFuerte.setOnClickListener(v -> {
-            filtrarPorCategoria("Plato Fuerte"); // <- podés cambiar esto a la categoría que necesites
+            filtrarPorCategoria("Plato fuerte");
         });
         btnCategoriaPostre.setOnClickListener(v -> {
-            filtrarPorCategoria("Postre"); // <- podés cambiar esto a la categoría que necesites
+            filtrarPorCategoria("Postre");
         });
-
+        btnCategoriaBebida.setOnClickListener(v -> {
+            filtrarPorCategoria("Bebida");
+        });
 
         return view;
     }
@@ -127,7 +127,6 @@ public class AdminMenuFragment extends Fragment {
             }
         }
 
-        // Nuevo adaptador con la lista filtrada
         adaptador = new MenuAdaptador(filtrados, getContext(), getParentFragmentManager());
         recyclerView.setAdapter(adaptador);
     }

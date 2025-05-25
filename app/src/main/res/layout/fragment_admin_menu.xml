@@ -10,134 +10,152 @@
         android:id="@+id/categoriasScroll"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:padding="8dp"
+        android:layout_marginTop="4dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toTopOf="parent"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/layoutCategorias"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <!-- Desayuno -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:paddingHorizontal="8dp"
-                android:gravity="center">
+                android:paddingHorizontal="8dp">
 
                 <ImageButton
                     android:id="@+id/btnEntrada"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@null"
-                    android:src="@drawable/icon_menu"
-                    android:contentDescription="Desayuno" />
+                    android:contentDescription="Desayuno"
+                    android:src="@drawable/icon_menu" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="Entrada"
                     android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <!-- Plato Fuerte -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:paddingHorizontal="8dp"
-                android:gravity="center">
+                android:paddingHorizontal="8dp">
 
                 <ImageButton
                     android:id="@+id/btnDesayuno"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@null"
-                    android:src="@drawable/icon_menu"
-                    android:contentDescription="Plato Fuerte" />
+                    android:contentDescription="Plato Fuerte"
+                    android:src="@drawable/icon_menu" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="Desayuno"
                     android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <!-- Cena -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:paddingHorizontal="8dp"
-                android:gravity="center">
+                android:paddingHorizontal="8dp">
 
                 <ImageButton
                     android:id="@+id/btnPlatoFuerte"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@null"
-                    android:src="@drawable/icon_menu"
-                    android:contentDescription="Cena" />
+                    android:contentDescription="Cena"
+                    android:src="@drawable/icon_menu" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="Plato Fuerte"
                     android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <!-- Postre -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:paddingHorizontal="8dp"
-                android:gravity="center">
+                android:paddingHorizontal="8dp">
 
                 <ImageButton
                     android:id="@+id/btnPostre"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@null"
-                    android:src="@drawable/icon_menu"
-                    android:contentDescription="Postre" />
+                    android:contentDescription="Postre"
+                    android:src="@drawable/icon_menu" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="Postre"
                     android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
+                    android:textStyle="bold" />
+            </LinearLayout>
+<!---->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp">
+
+                <ImageButton
+                    android:id="@+id/btnBebidas"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@null"
+                    android:contentDescription="Bebida"
+                    android:src="@drawable/icon_menu" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Bebidas"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- SearchView después de Postre -->
-            <SearchView
-                android:id="@+id/search"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="12dp"
-                android:iconifiedByDefault="false" />
         </LinearLayout>
     </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerMenu"
-        android:layout_width="match_parent"
-        android:layout_height="570dp"
+        android:layout_width="409dp"
+        android:layout_height="553dp"
         android:layout_marginVertical="8dp"
         app:layout_constraintBottom_toTopOf="@id/btnNuevoPlatillo"
         app:layout_constraintEnd_toEndOf="parent"
