@@ -6,27 +6,156 @@
     android:layout_height="match_parent"
     tools:context=".vistasAdmin.ui.verMenu.AdminMenuFragment">
 
+    <HorizontalScrollView
+        android:id="@+id/categoriasScroll"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="8dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:id="@+id/layoutCategorias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Desayuno -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/btnEntrada"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@null"
+                    android:src="@drawable/icon_menu"
+                    android:contentDescription="Desayuno" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Entrada"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <!-- Plato Fuerte -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/btnDesayuno"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@null"
+                    android:src="@drawable/icon_menu"
+                    android:contentDescription="Plato Fuerte" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Desayuno"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <!-- Cena -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/btnPlatoFuerte"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@null"
+                    android:src="@drawable/icon_menu"
+                    android:contentDescription="Cena" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Plato Fuerte"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <!-- Postre -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/btnPostre"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@null"
+                    android:src="@drawable/icon_menu"
+                    android:contentDescription="Postre" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Postre"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <!-- SearchView después de Postre -->
+            <SearchView
+                android:id="@+id/search"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="12dp"
+                android:iconifiedByDefault="false" />
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerMenu"
-        android:layout_width="366dp"
-        android:layout_height="591dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="570dp"
+        android:layout_marginVertical="8dp"
+        app:layout_constraintBottom_toTopOf="@id/btnNuevoPlatillo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@id/categoriasScroll" />
 
     <Button
         android:id="@+id/btnNuevoPlatillo"
         style="@style/styleButton1"
-        android:layout_width="356dp"
-        android:layout_height="70dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:drawableStart="@drawable/outline_add_2_24"
         android:text="Agregar Platillo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerMenu" />
+        app:layout_constraintTop_toBottomOf="@id/recyclerMenu" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
