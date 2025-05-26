@@ -51,7 +51,7 @@ public class CrearComandaActivity extends AppCompatActivity implements PlatilloA
         recyclerPlatillos = findViewById(R.id.recyclerPlatillos);
         btnCrearComanda = findViewById(R.id.btnCrearComanda);
 
-        dbPlatillos = FirebaseDatabase.getInstance().getReference("Platillos");
+        dbPlatillos = FirebaseDatabase.getInstance().getReference("platillos");
         dbComandas = FirebaseDatabase.getInstance().getReference("Comandas");
 
         recyclerPlatillos.setLayoutManager(new LinearLayoutManager(this));

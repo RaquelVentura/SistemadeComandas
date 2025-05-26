@@ -45,7 +45,7 @@ public class MeseroHomeFragment extends Fragment {
         listaComandas = new ArrayList<>();
         adapter = new ComandaAdapter(listaComandas);
         binding.recyclerComandas.setAdapter(adapter);
-        databaseReference = FirebaseDatabase.getInstance().getReference("comandas");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Comandas");
 
       binding.btnCrearComanda.setOnClickListener(v -> {
           Intent intent = new Intent(getActivity(), CrearComandaActivity.class);
