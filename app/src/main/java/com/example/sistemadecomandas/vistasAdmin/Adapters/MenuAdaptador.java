@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.sistemadecomandas.Modelos.Platillo;
 import com.example.sistemadecomandas.R;
 import com.example.sistemadecomandas.vistasAdmin.ui.EditarPlatillosFragment;
@@ -56,6 +57,15 @@ public class MenuAdaptador extends RecyclerView.Adapter<MenuAdaptador.MenuViewHo
 
         holder.btnElimianrPlatillo.setOnClickListener(v -> eliminarPlatillo(platillo));
 
+        String imagen = platillo.getImagenPlatillo();
+        if (imagen != null && !imagen.isEmpty()) {
+            Glide.with(context)
+                    .load(imagen)
+                    .placeholder(R.drawable.img_2)
+                    .into(holder.imgFotoPlatillo);
+        } else {
+            holder.imgFotoPlatillo.setImageResource(R.drawable.img_por_defecto_usuario);
+        }
         holder.btnEditarPlatillo.setOnClickListener(v -> {
             EditarPlatillosFragment editarPlatillosFragment = EditarPlatillosFragment.newInstance(platillo);
             editarPlatillosFragment.show(manager, "EditarPlatillo");
