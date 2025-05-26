@@ -27,12 +27,14 @@ import java.util.concurrent.Executors;
 public class GestionUsuarioAdaptador extends RecyclerView.Adapter<GestionUsuarioAdaptador.GestionUsuarioVIewHolder> {
 
     private List<Usuario> dataUsuarios;
+    private List<Usuario> listaOriginal;
     private Context context;
     private FragmentManager manager;
     public GestionUsuarioAdaptador() {
     }
     public GestionUsuarioAdaptador(List<Usuario> dataUsuarios, Context context, FragmentManager manager) {
         this.dataUsuarios = dataUsuarios;
+        this.listaOriginal = dataUsuarios;
         this.context = context;
         this.manager = manager;
     }
@@ -43,6 +45,14 @@ public class GestionUsuarioAdaptador extends RecyclerView.Adapter<GestionUsuario
 
     public void setDataUsuarios(List<Usuario> dataUsuarios) {
         this.dataUsuarios = dataUsuarios;
+    }
+
+    public List<Usuario> getListaOriginal() {
+        return listaOriginal;
+    }
+
+    public void setListaOriginal(List<Usuario> listaOriginal) {
+        this.listaOriginal = listaOriginal;
     }
 
     public Context getContext() {
@@ -73,15 +83,6 @@ public class GestionUsuarioAdaptador extends RecyclerView.Adapter<GestionUsuario
         Usuario usuarios = dataUsuarios.get(position);
         holder.lbNombre.setText(usuarios.getNombre());
         holder.lbRol.setText(usuarios.getRol());
-//ESTO LO REEMPLAZARE
-        /*int resourceId = context.getResources().getIdentifier(
-                usuarios.getImagen(), "drawable", context.getPackageName());
-
-        if (resourceId != 0) {
-            holder.imageViewUsuario.setImageResource(resourceId);
-        } else {
-            holder.imageViewUsuario.setImageResource(R.drawable.img_por_defecto_usuario);
-        }*/
 
         String imagen = usuarios.getImagen();
         if (imagen != null && !imagen.isEmpty()) {
@@ -143,4 +144,5 @@ public class GestionUsuarioAdaptador extends RecyclerView.Adapter<GestionUsuario
             }
                 }).setNegativeButton("no", null).show();
     }
+
 }

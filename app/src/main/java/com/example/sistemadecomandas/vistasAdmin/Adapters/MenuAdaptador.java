@@ -34,7 +34,6 @@ public class MenuAdaptador extends RecyclerView.Adapter<MenuAdaptador.MenuViewHo
         this.manager = manager;
     }
 
-    // Método para actualizar la lista de platillos
     public void actualizarLista(List<Platillo> nuevaLista) {
         dataPlatillo.clear();
         dataPlatillo.addAll(nuevaLista);
