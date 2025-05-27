@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sistemadecomandas.Modelos.Comanda;
 import com.example.sistemadecomandas.Modelos.Platillo;
+import com.example.sistemadecomandas.Modelos.PlatilloComanda;
 import com.example.sistemadecomandas.R;
 import com.example.sistemadecomandas.vistasMeseros.ui.adapter.PlatilloAdapterSeleccion;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +35,7 @@ public class CrearComandaActivity extends AppCompatActivity implements PlatilloA
 
     private List<Platillo> listaPlatillos = new ArrayList<>();
     private List<Platillo> platillosSeleccionados = new ArrayList<>();
+    private List<PlatilloComanda> platillosconCantidad = new ArrayList<>();
     private PlatilloAdapterSeleccion adapter;
 
     private DatabaseReference dbPlatillos;
@@ -83,11 +85,11 @@ public class CrearComandaActivity extends AppCompatActivity implements PlatilloA
     }
 
     @Override
-    public void onPlatilloSeleccionado(Platillo platillo, boolean seleccionado) {
+    public void onPlatilloSeleccionado(Platillo platillo, boolean seleccionado, int cantidad) {
         if (seleccionado) {
-            platillosSeleccionados.add(platillo);
+            platillosconCantidad.add(new PlatilloComanda(platillo, cantidad));
         } else {
-            platillosSeleccionados.removeIf(p -> p.getIdPlatillo().equals(platillo.getIdPlatillo()));
+            platillosconCantidad.removeIf(p -> p.getPlatillo().getIdPlatillo().equals(platillo.getIdPlatillo()));
         }
     }
 
@@ -101,7 +103,7 @@ public class CrearComandaActivity extends AppCompatActivity implements PlatilloA
             return;
         }
 
-        if (platillosSeleccionados.isEmpty()) {
+        if (platillosconCantidad == null || platillosconCantidad.isEmpty()) {
             Toast.makeText(this, "Selecciona al menos un platillo", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -110,9 +112,10 @@ public class CrearComandaActivity extends AppCompatActivity implements PlatilloA
         String fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
         double total = 0;
-        for (Platillo p : platillosSeleccionados) {
+        for (PlatilloComanda pc : platillosconCantidad) {
             try {
-                total += Double.parseDouble(p.getPrecio());
+                double precio = Double.parseDouble(pc.getPlatillo().getPrecio());
+                total += precio * pc.getCantidad();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -122,7 +125,7 @@ public class CrearComandaActivity extends AppCompatActivity implements PlatilloA
         comanda.setCodigoComanda(idComanda);
         comanda.setFecha(fecha);
         comanda.setNombreCliente(nombre);
-        comanda.setPlatillos(platillosSeleccionados);
+        comanda.setPlatillos(platillosconCantidad);
         comanda.setEstadoComanda("pendiente");
         comanda.setMesero(meseroActual);
         comanda.setNota(nota);
@@ -137,4 +140,5 @@ public class CrearComandaActivity extends AppCompatActivity implements PlatilloA
                     Toast.makeText(this, "Error al guardar comanda", Toast.LENGTH_SHORT).show();
                 });
     }
+
 }

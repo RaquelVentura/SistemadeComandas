@@ -1,9 +1,11 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:padding="16dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -11,36 +13,52 @@
 
         <EditText
             android:id="@+id/etNombreCliente"
-            android:hint="Nombre del Cliente"
             android:layout_width="match_parent"
-            android:layout_height="48dp" />
+            android:layout_height="48dp"
+            android:layout_margin="15dp"
+            android:hint="Nombre del Cliente"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <EditText
             android:id="@+id/etNota"
-            android:hint="Nota (opcional)"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="8dp" />
+            android:layout_margin="15dp"
+            android:hint="Nota (opcional)"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etNombreCliente" />
 
         <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:text="Selecciona los platillos:"
             android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerPlatillos"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="8dp" />
+            android:layout_height="430dp"
+
+            android:layout_marginTop="36dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etNota" />
 
         <Button
             android:id="@+id/btnCrearComanda"
-            android:text="Crear Comanda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp" />
-    </LinearLayout>
+            android:layout_margin="15dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="72dp"
+            android:text="Crear Comanda"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerPlatillos" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 

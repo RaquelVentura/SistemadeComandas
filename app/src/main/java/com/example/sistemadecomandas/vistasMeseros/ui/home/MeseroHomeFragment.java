@@ -33,12 +33,12 @@ public class MeseroHomeFragment extends Fragment {
     private Button btnCrearComanda;
     private List<Comanda> listaComandas;
     private DatabaseReference databaseReference;
-    private String meseroActual= "mesero1";
+    private String meseroActual = "mesero1";
     private FragmentMeserosHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentMeserosHomeBinding.inflate(inflater, container,false);
+        binding = FragmentMeserosHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         binding.recyclerComandas.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -47,11 +47,11 @@ public class MeseroHomeFragment extends Fragment {
         binding.recyclerComandas.setAdapter(adapter);
         databaseReference = FirebaseDatabase.getInstance().getReference("Comandas");
 
-      binding.btnCrearComanda.setOnClickListener(v -> {
-          Intent intent = new Intent(getActivity(), CrearComandaActivity.class);
-          intent.putExtra("mesero",meseroActual);
-          startActivity(intent);
-      });
+        binding.btnCrearComanda.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), CrearComandaActivity.class);
+            intent.putExtra("mesero", meseroActual);
+            startActivity(intent);
+        });
 
         cargarComandasMesero();
 
@@ -59,7 +59,7 @@ public class MeseroHomeFragment extends Fragment {
 
     }
 
-    private void cargarComandasMesero(){
+    private void cargarComandasMesero() {
         databaseReference.orderByChild("mesero").equalTo(meseroActual)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -71,6 +71,7 @@ public class MeseroHomeFragment extends Fragment {
                         }
                         adapter.notifyDataSetChanged();
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         Toast.makeText(getContext(), "Error al cargar comandas", Toast.LENGTH_SHORT).show();

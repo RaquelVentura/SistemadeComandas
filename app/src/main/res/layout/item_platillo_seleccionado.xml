@@ -55,6 +55,15 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
+        <EditText
+            android:id="@+id/edtCantidad"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:hint="Cant."
+            android:inputType="number"
+            android:enabled="false" />
+
+
         <CheckBox
             android:id="@+id/checkboxSeleccion"
             android:layout_width="wrap_content"
