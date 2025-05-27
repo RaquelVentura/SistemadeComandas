@@ -4,4 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".vistasCocineros.ui.home.CocinerosHomeFragment"/>
+    tools:context=".vistasCocineros.CocinerosHomeFragment">
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="354dp"
+        android:layout_height="39dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnPendiente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pendiente"
+            tools:layout_editor_absoluteX="30dp"
+            tools:layout_editor_absoluteY="22dp" />
+
+        <Button
+            android:id="@+id/btnEnProceso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="En proceso"
+            android:layout_marginLeft="5dp"
+            tools:layout_editor_absoluteX="30dp"
+            tools:layout_editor_absoluteY="22dp" />
+
+        <Button
+            android:id="@+id/btnFinalizado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Finalizado"
+            android:layout_marginLeft="3dp"
+            tools:layout_editor_absoluteX="30dp"
+            tools:layout_editor_absoluteY="22dp" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleComandas"
+        android:layout_width="match_parent"
+        android:layout_height="623dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
