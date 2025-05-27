@@ -1,11 +1,13 @@
 package com.example.sistemadecomandas.vistasMeseros;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
 import com.example.sistemadecomandas.R;
+import com.example.sistemadecomandas.login.LogImActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -42,7 +44,21 @@ public class VistaPrincipalMeserosActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_vista_principal_meseros);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
 
+            if (id == R.id.btnCerrarSesion) {
+                Intent intent = new Intent(this, LogImActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+                return true;
+            } else {
+                return NavigationUI.onNavDestinationSelected(item, navController)
+                        || super.onSupportNavigateUp();
+            }
+
+        });
     }
 
     @Override

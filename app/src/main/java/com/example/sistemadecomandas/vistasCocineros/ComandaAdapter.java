@@ -62,8 +62,8 @@ public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ComandaV
             String estadoActual = comanda.getEstadoComanda();
 
             if (estadoActual.equals("pendiente")) {
-                mostrarDialogoCambioEstado("en preparación", comanda.getCodigoComanda(), holder);
-            } else if (estadoActual.equals("en preparación")) {
+                mostrarDialogoCambioEstado("En proceso", comanda.getCodigoComanda(), holder);
+            } else if (estadoActual.equals("En proceso")) {
                 mostrarDialogoCambioEstado("finalizado", comanda.getCodigoComanda(), holder);
             }
         });
@@ -112,7 +112,7 @@ public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ComandaV
         switch (estado) {
             case "pendiente":
                 return "Iniciar preparación";
-            case "en preparación":
+            case "En proceso":
                 return "Finalizar";
             case "finalizado":
                 return "Finalizado";
@@ -124,7 +124,7 @@ public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ComandaV
         switch (estado) {
             case "pendiente":
                 return android.R.color.holo_blue_light;
-            case "en preparación":
+            case "En proceso":
                 return android.R.color.holo_orange_light;
             case "finalizado":
                 return android.R.color.holo_green_dark;
