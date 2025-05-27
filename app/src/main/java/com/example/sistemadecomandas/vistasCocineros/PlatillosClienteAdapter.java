@@ -13,12 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.sistemadecomandas.Modelos.Platillo;
+import com.example.sistemadecomandas.Modelos.PlatilloComanda;
 import com.example.sistemadecomandas.R;
 
 import java.util.List;
 
 public class PlatillosClienteAdapter extends RecyclerView.Adapter<PlatillosClienteAdapter.PlatilloClienteViewHolder> {
 
+    private List<PlatilloComanda> platilloComandaList;
     private List<Platillo> listaPlatillo;
     private Context context;
     private FragmentManager manager;
@@ -30,8 +32,9 @@ public class PlatillosClienteAdapter extends RecyclerView.Adapter<PlatillosClien
         this.context = context;
         this.manager = manager;
     }
-    public PlatillosClienteAdapter(List<Platillo> listaPlatillo, Context context, FragmentManager manager) {
-        this.listaPlatillo = listaPlatillo;
+
+    public PlatillosClienteAdapter(List<PlatilloComanda> platilloComandaList, Context context, FragmentManager manager) {
+        this.platilloComandaList = platilloComandaList;
         this.context = context;
         this.manager = manager;
     }
