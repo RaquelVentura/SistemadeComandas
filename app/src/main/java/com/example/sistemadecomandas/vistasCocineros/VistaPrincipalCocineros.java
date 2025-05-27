@@ -1,10 +1,12 @@
 package com.example.sistemadecomandas.vistasCocineros;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Toast;
 
 import com.example.sistemadecomandas.R;
+import com.example.sistemadecomandas.login.LogImActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -33,12 +35,26 @@ public class VistaPrincipalCocineros extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_gallery, R.id.btnCerrarSesion)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_vista_principal_cocineros);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.btnCerrarSesion) {
+                Intent intent = new Intent(this, LogImActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+                return true;
+            } else {
+                return NavigationUI.onNavDestinationSelected(item, navController)
+                        || super.onSupportNavigateUp();
+            }
+        });
     }
 
     @Override
