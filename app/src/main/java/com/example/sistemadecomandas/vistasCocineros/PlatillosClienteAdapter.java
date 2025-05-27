@@ -48,12 +48,12 @@ public class PlatillosClienteAdapter extends RecyclerView.Adapter<PlatillosClien
 
     @Override
     public void onBindViewHolder(@NonNull PlatilloClienteViewHolder holder, int position) {
-        Platillo platillo = listaPlatillo.get(position);
-        holder.txtNombrePlatillo.setText(platillo.getnombrePlatillo());
+        PlatilloComanda platillo = platilloComandaList.get(position);
+        holder.txtNombrePlatillo.setText(platillo.getPlatillo().getnombrePlatillo());
 
-        if (platillo.getImagenPlatillo() != null && !platillo.getImagenPlatillo().trim().isEmpty()) {
+        if (platillo.getPlatillo().getImagenPlatillo() != null && !platillo.getPlatillo().getImagenPlatillo().trim().isEmpty()) {
             Glide.with(context)
-                    .load(platillo.getImagenPlatillo())
+                    .load(platillo.getPlatillo().getImagenPlatillo())
                     .placeholder(R.drawable.img_2)
                     .error(R.drawable.img_2)
                     .into(holder.imagenPlatillo);
