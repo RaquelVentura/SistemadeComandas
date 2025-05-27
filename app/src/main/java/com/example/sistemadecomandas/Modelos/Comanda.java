@@ -7,14 +7,14 @@ public class Comanda {
     private String fecha;
     private String nombreCliente;
     private String codigoComanda;
-    private List<Platillo> platillos;
+    private List<PlatilloComanda> platillos;
     private String estadoComanda;
     private String mesero;
     private String nota;
     private String totalPagar;
     public Comanda() {}
 
-    public Comanda(String fecha, String nombreCliente, String codigoComanda, List<Platillo> platillos, String estadoComanda, String mesero, String nota, String totalPagar) {
+    public Comanda(String fecha, String nombreCliente, String codigoComanda, List<PlatilloComanda> platillos, String estadoComanda, String mesero, String nota, String totalPagar) {
         this.fecha = fecha;
         this.nombreCliente = nombreCliente;
         this.codigoComanda = codigoComanda;
@@ -49,19 +49,11 @@ public class Comanda {
         this.codigoComanda = codigoComanda;
     }
 
-    public String getNota() {
-        return nota;
-    }
-
-    public void setNota(String nota) {
-        this.nota = nota;
-    }
-
-    public List<Platillo> getPlatillos() {
+    public List<PlatilloComanda> getPlatillos() {
         return platillos;
     }
 
-    public void setPlatillos(List<Platillo> platillos) {
+    public void setPlatillos(List<PlatilloComanda> platillos) {
         this.platillos = platillos;
     }
 
@@ -79,6 +71,14 @@ public class Comanda {
 
     public void setMesero(String mesero) {
         this.mesero = mesero;
+    }
+
+    public String getNota() {
+        return nota;
+    }
+
+    public void setNota(String nota) {
+        this.nota = nota;
     }
 
     public String getTotalPagar() {
