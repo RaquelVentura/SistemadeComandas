@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.sistemadecomandas.Modelos.Usuario;
 import com.example.sistemadecomandas.R;
 import com.example.sistemadecomandas.vistasAdmin.ui.EditarUsuarioFragment;
@@ -26,12 +27,14 @@ import java.util.concurrent.Executors;
 public class GestionUsuarioAdaptador extends RecyclerView.Adapter<GestionUsuarioAdaptador.GestionUsuarioVIewHolder> {
 
     private List<Usuario> dataUsuarios;
+    private List<Usuario> listaOriginal;
     private Context context;
     private FragmentManager manager;
     public GestionUsuarioAdaptador() {
     }
     public GestionUsuarioAdaptador(List<Usuario> dataUsuarios, Context context, FragmentManager manager) {
         this.dataUsuarios = dataUsuarios;
+        this.listaOriginal = dataUsuarios;
         this.context = context;
         this.manager = manager;
     }
@@ -42,6 +45,14 @@ public class GestionUsuarioAdaptador extends RecyclerView.Adapter<GestionUsuario
 
     public void setDataUsuarios(List<Usuario> dataUsuarios) {
         this.dataUsuarios = dataUsuarios;
+    }
+
+    public List<Usuario> getListaOriginal() {
+        return listaOriginal;
+    }
+
+    public void setListaOriginal(List<Usuario> listaOriginal) {
+        this.listaOriginal = listaOriginal;
     }
 
     public Context getContext() {
@@ -73,14 +84,16 @@ public class GestionUsuarioAdaptador extends RecyclerView.Adapter<GestionUsuario
         holder.lbNombre.setText(usuarios.getNombre());
         holder.lbRol.setText(usuarios.getRol());
 
-        int resourceId = context.getResources().getIdentifier(
-                usuarios.getImagen(), "drawable", context.getPackageName());
-
-        if (resourceId != 0) {
-            holder.imageViewUsuario.setImageResource(resourceId);
+        String imagen = usuarios.getImagen();
+        if (imagen != null && !imagen.isEmpty()) {
+            Glide.with(context)
+                    .load(imagen)
+                    .placeholder(R.drawable.img_por_defecto_usuario)
+                    .into(holder.imageViewUsuario);
         } else {
             holder.imageViewUsuario.setImageResource(R.drawable.img_por_defecto_usuario);
         }
+
         holder.btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,4 +144,5 @@ public class GestionUsuarioAdaptador extends RecyclerView.Adapter<GestionUsuario
             }
                 }).setNegativeButton("no", null).show();
     }
+
 }
