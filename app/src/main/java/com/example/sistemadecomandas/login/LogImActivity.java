@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -43,6 +44,7 @@ import java.util.concurrent.Executors;
 
 public class LogImActivity extends AppCompatActivity {
     private Button btnACeptar;
+    private TextView btnRecuperarCOntrasenia;
     private EditText txtInicioEmail, txtInicioPass;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -60,9 +62,16 @@ public class LogImActivity extends AppCompatActivity {
         txtInicioPass = findViewById(R.id.txtInicioPassword);
         btnACeptar = findViewById(R.id.btnAceptar);
         firebaseAuth = FirebaseAuth.getInstance();
-
+        btnRecuperarCOntrasenia = findViewById(R.id.btnRcuperarContrasenia);
         databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
 
+        btnRecuperarCOntrasenia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), RecuperarContrasenaActivity.class);
+                startActivity(intent);
+            }
+        });
         btnACeptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
