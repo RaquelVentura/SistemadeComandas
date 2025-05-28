@@ -81,18 +81,16 @@ public class PlatilloAdapterSeleccion extends RecyclerView.Adapter<PlatilloAdapt
             txtDescripcion.setText("Descripción: " + platillo.getDescripcion());
             txtPrecio.setText("$" + platillo.getPrecio());
 
-            // Manejo de imagen por defecto (puedes cambiar esto según tu lógica)
+
             if (platillo.getImagenPlatillo().equals("img_por_defecto_usuario")) {
-                imgPlatillo.setImageResource(R.drawable.ic_launcher_foreground); // imagen por defecto
+                imgPlatillo.setImageResource(R.drawable.ic_launcher_foreground);
             } else {
-                // Si usas Glide/Picasso para URLs, puedes cargarlo así:
-                // Glide.with(context).load(platillo.getImagenPlatillo()).into(imgPlatillo);
             }
 
             int cantidadGuardada = cantidadesSeleccionadas.getOrDefault(platillo.getIdPlatillo(),1);
             edtCantidad.setText(String.valueOf(cantidadGuardada));
 
-            checkBox.setOnCheckedChangeListener(null); // evitar efecto de reciclado
+            checkBox.setOnCheckedChangeListener(null);
             checkBox.setChecked(idsSeleccionados.contains(platillo.getIdPlatillo()));
             edtCantidad.setEnabled(checkBox.isChecked());
 
