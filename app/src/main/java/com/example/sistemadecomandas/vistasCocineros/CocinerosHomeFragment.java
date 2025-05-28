@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,6 +40,7 @@ public class CocinerosHomeFragment extends Fragment implements ComandaAdapter.On
     private static final int PICK_IMAGE_REQUEST = 1;
     private String comandaIdParaSubirImagen;
     private Uri imagenSeleccionada;
+    private TextView btnMostrarTodos;
 
     private Button btnFiltroPendiente, btnFiltroProceso, btnFiltroFinalizado;
     private List<Comanda> listaComandas;
@@ -57,6 +59,7 @@ public class CocinerosHomeFragment extends Fragment implements ComandaAdapter.On
         btnFiltroPendiente = root.findViewById(R.id.btnPendiente);
         btnFiltroProceso = root.findViewById(R.id.btnEnProceso);
         btnFiltroFinalizado = root.findViewById(R.id.btnFinalizado);
+        btnMostrarTodos = root.findViewById(R.id.btnVerTodasComandas);
         binding.recycleComandas.setLayoutManager(new LinearLayoutManager(getContext()));
         listaComandas = new ArrayList<>();
 
@@ -68,7 +71,7 @@ public class CocinerosHomeFragment extends Fragment implements ComandaAdapter.On
         btnFiltroPendiente.setOnClickListener(v -> filtrarComandasPorEstado("Pendiente"));
         btnFiltroProceso.setOnClickListener(v -> filtrarComandasPorEstado("En proceso"));
         btnFiltroFinalizado.setOnClickListener(v -> filtrarComandasPorEstado("Finalizado"));
-
+        btnMostrarTodos.setOnClickListener(v->{adaptador.actualizarLista(listaComandas);});
         return root;
     }
 
