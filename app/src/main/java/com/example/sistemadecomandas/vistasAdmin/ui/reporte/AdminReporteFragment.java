@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,7 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.bumptech.glide.Glide;
 import com.example.sistemadecomandas.Modelos.PlatilloComanda;
+import com.example.sistemadecomandas.R;
 import com.example.sistemadecomandas.databinding.FragmentAdminReporteBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -107,14 +110,52 @@ public class AdminReporteFragment extends Fragment {
                 }
                 adapterPopulares.notifyDataSetChanged();
                 adapterVentas.notifyDataSetChanged();
-            }
+                actualizarPlatoMenosVendido(mapaPlatillos, contadorVendidos);
 
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
     }
+    private void actualizarPlatoMenosVendido(HashMap<String, PlatilloComanda> mapaPlatillos, HashMap<String, Integer> contadorVendidos) {
+        if (contadorVendidos.isEmpty() || getView() == null || getContext() == null) return;
+
+        String idMenosVendido = null;
+        int minCantidad = Integer.MAX_VALUE;
+
+        for (String id : contadorVendidos.keySet()) {
+            int cantidad = contadorVendidos.get(id);
+            if (cantidad < minCantidad) {
+                minCantidad = cantidad;
+                idMenosVendido = id;
+            }
+        }
+
+        if (idMenosVendido != null) {
+            PlatilloComanda platillo = mapaPlatillos.get(idMenosVendido);
+            if (platillo != null && platillo.getPlatillo() != null) {
+                TextView nombre = getView().findViewById(R.id.lbNombrePlatoMenosVendido);
+                TextView cantidad = getView().findViewById(R.id.lbCantidadPlatoMenosVendido);
+                ImageView imagen = getView().findViewById(R.id.imageView3);
+
+                nombre.setText(platillo.getPlatillo().getnombrePlatillo());
+                cantidad.setText("Cantidad: " + minCantidad);
+
+                String urlImagen = platillo.getPlatillo().getImagenPlatillo();
+                if (urlImagen != null && !urlImagen.isEmpty()) {
+                    Glide.with(getContext())
+                            .load(urlImagen)
+                            .placeholder(R.drawable.img_2)
+                            .into(imagen);
+                } else {
+                    imagen.setImageResource(R.drawable.img_2);
+                }
+            }
+        }
+    }
+
 
     @Override
     public void onDestroyView() {

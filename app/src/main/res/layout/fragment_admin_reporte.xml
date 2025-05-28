@@ -1,4 +1,5 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -98,17 +99,27 @@
                 <TextView
                     android:text="Plato menos vendido"
                     android:textStyle="bold"
+                    android:textSize="18sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-
                 <TextView
-                    android:id="@+id/txtPlatoMenosVendido"
-                    android:text="Cargando..."
+                    android:id="@+id/lbNombrePlatoMenosVendido"
+                    android:text="Nombre del plato"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    app:srcCompat="@drawable/img_2" />
+                <TextView
+                    android:id="@+id/lbCantidadPlatoMenosVendido"
+                    android:text="Cantidad"
                     android:layout_marginTop="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
     </LinearLayout>
 </ScrollView>
