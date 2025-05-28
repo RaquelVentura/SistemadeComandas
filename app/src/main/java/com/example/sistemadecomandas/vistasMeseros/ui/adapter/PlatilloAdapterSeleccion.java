@@ -58,7 +58,7 @@ public class PlatilloAdapterSeleccion extends RecyclerView.Adapter<PlatilloAdapt
             Glide.with(context)
                     .load(imagen)
                     .placeholder(R.drawable.img_2)
-                    .into(holder.imgPlatillo); // ¡Aquí estaba el error!
+                    .into(holder.imgPlatillo);
         } else {
             holder.imgPlatillo.setImageResource(R.drawable.img_por_defecto_usuario);
         }
