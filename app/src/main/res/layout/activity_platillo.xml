@@ -1,128 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cardview_shadow_start_color">
-    <View
-        android:id="@+id/view2"
-        android:layout_width="350dp"
-        android:layout_height="635dp"
-        android:background="@drawable/view_style"
+    android:background="@color/fondoPastel">
+
+    <!-- CardView centrada con todo el formulario -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/tarjetaPastel"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <Spinner
-        android:id="@+id/spCategoria"
-        style="@style/encabezado2"
-        android:layout_width="285dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/input_style"
-        android:ems="10"
-        android:inputType="text"
-        android:paddingLeft="10dp"
-        android:text="Categoria"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textColorHint="#888888"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNombrePlato" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="24dp">
 
-    <Button
-        android:id="@+id/btnAceptarPLa"
-        android:layout_marginTop="68dp"
-        style="@style/styleButton1"
-        android:layout_width="285dp"
-        android:layout_height="59dp"
-        android:text="ACEPTAR"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPrecio" />
+            <!-- Título -->
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/encabezado1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PLATILLOS"
+                android:textColor="@color/textPrincipal"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
 
-    <EditText
-        android:id="@+id/txtNombrePlato"
-        style="@style/encabezado2"
-        android:layout_width="285dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="260dp"
-        android:background="@drawable/input_style"
-        android:ems="10"
-        android:hint="Nombre del platillo"
-        android:inputType="text"
-        android:paddingLeft="10dp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textColorHint="#888888"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <!-- Imagen -->
+            <ImageView
+                android:id="@+id/imagenPlatillo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@mipmap/ic_launcher"
+                android:contentDescription="Imagen del platillo"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/view_style"
+                android:scaleType="centerCrop" />
 
-    <EditText
-        android:id="@+id/txtDescricion"
-        style="@style/encabezado2"
-        android:layout_width="285dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/input_style"
-        android:ems="10"
-        android:inputType="text"
-        android:paddingLeft="10dp"
-        android:hint="Descripcion"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textColorHint="#888888"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spCategoria" />
+            <!-- Nombre del platillo -->
+            <EditText
+                android:id="@+id/txtNombrePlato"
+                style="@style/encabezado2"
+                android:layout_width="match_parent"
+                android:layout_height="59dp"
+                android:background="@drawable/rounded_input"
+                android:hint="Nombre del platillo"
+                android:textColor="@color/hintColor"
+                android:textColorHint="#888888"
+                android:inputType="text"
+                android:textAlignment="center"
+                android:layout_marginBottom="12dp" />
 
-    <EditText
-        android:id="@+id/txtPrecio"
-        style="@style/encabezado2"
-        android:layout_width="285dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/input_style"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:paddingLeft="10dp"
-        android:hint="Precio"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textColorHint="#888888"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescricion" />
+            <!-- Categoría -->
+            <Spinner
+                android:id="@+id/spCategoria"
+                style="@style/encabezado2"
+                android:layout_width="match_parent"
+                android:layout_height="59dp"
+                android:background="@drawable/rounded_input"
+                android:textAlignment="center"
+                android:layout_marginBottom="12dp" />
 
-    <TextView
-        android:id="@+id/textView2"
-        style="@style/encabezado1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
-        android:text="PLATILLOS"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <!-- Descripción -->
+            <EditText
+                android:id="@+id/txtDescricion"
+                style="@style/encabezado2"
+                android:layout_width="match_parent"
+                android:layout_height="59dp"
+                android:background="@drawable/rounded_input"
+                android:hint="Descripción"
+                android:textColor="@color/hintColor"
+                android:inputType="text"
+                android:textAlignment="center"
+                android:layout_marginBottom="12dp" />
 
-    <ImageView
-        android:id="@+id/imagenPlatillo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:src="@mipmap/ic_launcher"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view2" />
+            <!-- Precio -->
+            <EditText
+                android:id="@+id/txtPrecio"
+                style="@style/encabezado2"
+                android:layout_width="match_parent"
+                android:layout_height="59dp"
+                android:background="@drawable/rounded_input"
+                android:hint="Precio"
+                android:textColor="@color/hintColor"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Botón Aceptar -->
+            <Button
+                android:id="@+id/btnAceptarPLa"
+                android:layout_width="match_parent"
+                android:layout_height="59dp"
+                android:text="ACEPTAR"
+                android:backgroundTint="@color/accentoPastel"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

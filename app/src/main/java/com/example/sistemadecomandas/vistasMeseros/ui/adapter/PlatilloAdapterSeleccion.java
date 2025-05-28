@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.sistemadecomandas.Modelos.Platillo;
 import com.example.sistemadecomandas.Modelos.PlatilloComanda;
 import com.example.sistemadecomandas.R;
@@ -60,6 +61,16 @@ public class PlatilloAdapterSeleccion extends RecyclerView.Adapter<PlatilloAdapt
     public void onBindViewHolder(@NonNull PlatilloAdapterSeleccion.ViewHolder holder, int position) {
         Platillo platillo = listaPlatillos.get(position);
         holder.bind(platillo);
+
+        String imagen = platillo.getImagenPlatillo();
+        if (imagen != null && !imagen.isEmpty()) {
+            Glide.with(context)
+                    .load(imagen)
+                    .placeholder(R.drawable.img_2)
+                    .into(holder.imgPlatillo);
+        } else {
+            holder.imgPlatillo.setImageResource(R.drawable.img_por_defecto_usuario);
+        }
     }
 
     @Override

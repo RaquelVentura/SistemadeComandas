@@ -1,65 +1,77 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layoutEditarComanda"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="#FFFFFF">
+    android:layout_height="675dp">
 
-    <TextView
-        android:id="@+id/tvTitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Editar Comanda"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp" />
-
-    <EditText
-        android:id="@+id/etNombreCliente"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nombre del Cliente"
-        android:inputType="textPersonName"
-        android:padding="12dp"
-        android:background="@drawable/edittext_border" />
+        android:padding="16dp">
 
-    <EditText
-        android:id="@+id/etNota"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nota (opcional)"
-        android:padding="12dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/edittext_border" />
+        <TextView
+            android:id="@+id/textViewEditarTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="28dp"
+            android:text="Editar Comanda"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvPlatillos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Seleccionar Platillos"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp" />
+        <EditText
+            android:id="@+id/etNombreCliente"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="15dp"
+            android:hint="Nombre del Cliente"
+            android:background="@drawable/edittext_border"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewEditarTitulo" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerPlatillos"
-        android:layout_width="match_parent"
-        android:layout_height="430dp"
-        android:layout_weight="1"
-        android:layout_marginTop="8dp" />
+        <EditText
+            android:id="@+id/etNota"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="15dp"
+            android:hint="Nota (opcional)"
+            android:background="@drawable/edittext_border"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etNombreCliente" />
 
-    <Button
-        android:id="@+id/btnActualizarComanda"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Actualizar Comanda"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="#4CAF50"
-        android:textColor="#FFFFFF"
-        android:padding="12dp" />
+        <TextView
+            android:id="@+id/textViewPlatillos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:text="Selecciona los platillos:"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etNota" />
 
-</LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerPlatillos"
+            android:layout_width="match_parent"
+            android:layout_height="275dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewPlatillos" />
+
+        <Button
+            android:id="@+id/btnActualizarComanda"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="116dp"
+            android:backgroundTint="@color/accentoPastel"
+            android:text="Actualizar Comanda"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recyclerPlatillos" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
