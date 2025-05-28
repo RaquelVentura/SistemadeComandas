@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,7 +27,7 @@ public class AdminReporteFragment extends Fragment {
 
     private FragmentAdminReporteBinding binding;
     private FragmentManager manager;
-
+    private TextView lbSinComandasHoy;
     private InformePlatosPopularesAdapter adapterPopulares;
     private InformeVentasDelDiaAdapter adapterVentas;
 
@@ -41,12 +42,11 @@ public class AdminReporteFragment extends Fragment {
         View root = binding.getRoot();
         manager = getParentFragmentManager();
 
-        binding.recyclerPlatosPopulares.setLayoutManager(
-                new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        binding.recyclerPlatosPopulares.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         adapterPopulares = new InformePlatosPopularesAdapter(listaPopulares, getContext(), manager);
         binding.recyclerPlatosPopulares.setAdapter(adapterPopulares);
 
-        binding.recyclerVentasDelDia.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerVentasDelDia.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         adapterVentas = new InformeVentasDelDiaAdapter(listaVentas, getContext(), manager);
         binding.recyclerVentasDelDia.setAdapter(adapterVentas);
 
@@ -93,7 +93,11 @@ public class AdminReporteFragment extends Fragment {
                     }
                 }
 
-                //-----------------------ordenando---------------------------
+                if (listaVentas.isEmpty()) {
+                    lbSinComandasHoy.setVisibility(View.VISIBLE);
+                } else {
+                }
+
                 List<String> ordenIDs = new ArrayList<>(contadorVendidos.keySet());
                 ordenIDs.sort((a, b) -> Integer.compare(contadorVendidos.get(b), contadorVendidos.get(a)));
 
@@ -104,6 +108,7 @@ public class AdminReporteFragment extends Fragment {
                 adapterPopulares.notifyDataSetChanged();
                 adapterVentas.notifyDataSetChanged();
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

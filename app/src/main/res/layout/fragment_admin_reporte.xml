@@ -66,6 +66,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp" />
+                <TextView
+                    android:id="@+id/lbSinComandasHoy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/darker_gray"
+                    android:text="No se han realizado comandas este día"
+                    android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerVentasDelDia"
