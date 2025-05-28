@@ -1,10 +1,12 @@
 package com.example.sistemadecomandas.vistasMeseros.ui.adapter;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sistemadecomandas.Modelos.Comanda;
@@ -15,7 +17,7 @@ import java.util.List;
 public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ComandaViewHolder> {
     private List<Comanda> listaComandas;
 
-    public ComandaAdapter(List<Comanda> listaComandas) {
+    public ComandaAdapter(List<Comanda> listaComandas, Context context, FragmentManager manager) {
         this.listaComandas = listaComandas;
     }
 

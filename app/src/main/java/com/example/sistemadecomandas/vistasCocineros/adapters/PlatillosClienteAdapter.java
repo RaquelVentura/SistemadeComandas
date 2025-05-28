@@ -1,4 +1,4 @@
-package com.example.sistemadecomandas.vistasCocineros;
+package com.example.sistemadecomandas.vistasCocineros.adapters;
 
 import android.content.Context;
 import android.util.Log;
