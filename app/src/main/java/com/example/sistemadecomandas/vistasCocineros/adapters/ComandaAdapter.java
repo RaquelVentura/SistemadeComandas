@@ -1,11 +1,13 @@
-package com.example.sistemadecomandas.vistasCocineros;
+package com.example.sistemadecomandas.vistasCocineros.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,10 +16,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sistemadecomandas.Modelos.ArchivosAdjuntosPorComanda;
 import com.example.sistemadecomandas.Modelos.Comanda;
-import com.example.sistemadecomandas.Modelos.Platillo;
 import com.example.sistemadecomandas.R;
-import com.example.sistemadecomandas.vistasAdmin.Adapters.MenuAdaptador;
+
+import com.example.sistemadecomandas.vistasCocineros.AdjuntosAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -27,13 +30,21 @@ public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ComandaV
     private List<Comanda> listaComandas;
     private Context context;
     private FragmentManager manager;
-
+    public interface OnAdjuntarImagenListener {
+        void onAdjuntarImagen(String idComanda);
+    }
+    private OnAdjuntarImagenListener adjuntarImagenListener;
     public ComandaAdapter(List<Comanda> listaComandas, Context context, FragmentManager manager) {
         this.listaComandas = listaComandas;
         this.context = context;
         this.manager = manager;
     }
-
+    public ComandaAdapter(List<Comanda> listaComandas, Context context, FragmentManager manager, OnAdjuntarImagenListener listener) {
+        this.listaComandas = listaComandas;
+        this.context = context;
+        this.manager = manager;
+        this.adjuntarImagenListener = listener;
+    }
     @NonNull
     @Override
     public ComandaAdapter.ComandaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -51,7 +62,6 @@ public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ComandaV
         holder.txtNota.setText(comanda.getNota());
 
         PlatillosClienteAdapter platosAdapter = new PlatillosClienteAdapter(comanda.getPlatillos(), context, manager);
-
         holder.recyclerPlatos.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.recyclerPlatos.setAdapter(platosAdapter);
 
@@ -60,7 +70,6 @@ public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ComandaV
 
         holder.btnCambiarEstado.setOnClickListener(view -> {
             String estadoActual = comanda.getEstadoComanda();
-
             if (estadoActual.equals("pendiente")) {
                 mostrarDialogoCambioEstado("En proceso", comanda.getCodigoComanda(), holder);
             } else if (estadoActual.equals("En proceso")) {
@@ -68,25 +77,59 @@ public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ComandaV
             }
         });
 
-    }
+    //-------------------------------------------------------------------------------------------------
+        holder.recyclerAdjuntos.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        holder.recyclerAdjuntos.setVisibility(View.GONE);
+        holder.txtMostrar.setVisibility(View.GONE);
 
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("AdjuntosComanda");
+        ref.child(comanda.getCodigoComanda()).get().addOnSuccessListener(snapshot -> {
+            if (snapshot.exists()) {
+                ArchivosAdjuntosPorComanda adjuntos = snapshot.getValue(ArchivosAdjuntosPorComanda.class);
+                if (adjuntos != null && adjuntos.getUrlsImagenes() != null && !adjuntos.getUrlsImagenes().isEmpty()) {
+                    AdjuntosAdapter adjuntosAdapter = new AdjuntosAdapter(adjuntos.getListaUrls(), context);
+
+                    holder.recyclerAdjuntos.setAdapter(adjuntosAdapter);
+
+                    holder.txtMostrar.setVisibility(View.VISIBLE);
+                    holder.recyclerAdjuntos.setVisibility(View.VISIBLE);
+                    holder.txtMostrar.setText("Ocultar archivos adjuntos");
+                }
+            }
+        });
+        holder.txtMostrar.setOnClickListener(v -> {
+            boolean visible = holder.recyclerAdjuntos.getVisibility() == View.VISIBLE;
+            holder.recyclerAdjuntos.setVisibility(visible ? View.GONE : View.VISIBLE);
+            holder.txtMostrar.setText(visible ? "Mostrar archivos adjuntos" : "Ocultar archivos adjuntos");
+        });
+
+        holder.btnImgAdjuntos.setOnClickListener(v -> {
+            if (adjuntarImagenListener != null) {
+                adjuntarImagenListener.onAdjuntarImagen(comanda.getCodigoComanda());
+            }
+        });
+    }
     @Override
     public int getItemCount() {
         return listaComandas.size();
     }
-
     public class ComandaViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtNombreCliente, txtFecha, txtEstado, txtNota;
-        private RecyclerView recyclerPlatos;
+        private ImageButton btnImgAdjuntos;
+        private TextView txtNombreCliente, txtFecha, txtEstado, txtNota, txtMostrar;
+        private RecyclerView recyclerPlatos, recyclerAdjuntos;
         private Button btnCambiarEstado;
         public ComandaViewHolder(@NonNull View itemView) {
             super(itemView);
             txtNombreCliente = itemView.findViewById(R.id.txtNombreClienteComanda);
             txtFecha = itemView.findViewById(R.id.txtFechaComanda);
             txtNota = itemView.findViewById(R.id.txtNota);
+            txtMostrar = itemView.findViewById(R.id.txtMostrarArchivos);
             txtEstado = itemView.findViewById(R.id.txtEstado);
+            btnImgAdjuntos = itemView.findViewById(R.id.btnAdjuntarFotos);
             recyclerPlatos = itemView.findViewById(R.id.recylerPlatosPorClientes);
+            recyclerAdjuntos = itemView.findViewById(R.id.recyclerAdjuntos);
             btnCambiarEstado = itemView.findViewById(R.id.btnCambiarEstado);
+
         }
     }
     private void mostrarDialogoCambioEstado(String nuevoEstado, String idComanda, ComandaViewHolder holder) {
@@ -108,6 +151,7 @@ public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ComandaV
         }
 
     }
+
     private String getTextoBoton(String estado) {
         switch (estado) {
             case "pendiente":
@@ -136,6 +180,19 @@ public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ComandaV
         this.listaComandas.clear();
         this.listaComandas.addAll(nuevasComandas);
         notifyDataSetChanged();
+    }
+    public void mostrarAdjuntosSiHay(String comandaId) {
+        int index = -1;
+        for (int i = 0; i < listaComandas.size(); i++) {
+            if (listaComandas.get(i).getCodigoComanda().equals(comandaId)) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index != -1) {
+            notifyItemChanged(index);
+        }
     }
 
 }
