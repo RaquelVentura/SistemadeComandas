@@ -1,9 +1,10 @@
 package com.example.sistemadecomandas.Modelos;
 
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Comanda {
+public class Comanda implements Serializable {
     private String fecha;
     private String nombreCliente;
     private String codigoComanda;

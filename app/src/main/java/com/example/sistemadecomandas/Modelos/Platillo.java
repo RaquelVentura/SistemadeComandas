@@ -1,6 +1,8 @@
 package com.example.sistemadecomandas.Modelos;
 
-public class Platillo {
+import java.io.Serializable;
+
+public class Platillo implements Serializable {
     private String idPlatillo;
     private String imagenPlatillo;
     private String nombrePlatillo;

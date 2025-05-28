@@ -12,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sistemadecomandas.Modelos.Platillo;
+import com.example.sistemadecomandas.Modelos.PlatilloComanda;
 import com.example.sistemadecomandas.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -26,6 +28,8 @@ public class PlatilloAdapterSeleccion extends RecyclerView.Adapter<PlatilloAdapt
     private Set<String> idsSeleccionados = new HashSet<>();
     private Map<String, Integer> cantidadesSeleccionadas = new HashMap<>();
     private OnPlatilloSeleccionadoListener listener;
+    private List<PlatilloComanda> platillosConCantidad = new ArrayList<>();
+
     private Context context;
 
     public PlatilloAdapterSeleccion(List<Platillo> listaPlatillos, OnPlatilloSeleccionadoListener listener) {
@@ -36,6 +40,11 @@ public class PlatilloAdapterSeleccion extends RecyclerView.Adapter<PlatilloAdapt
     public interface OnPlatilloSeleccionadoListener {
         void onPlatilloSeleccionado(Platillo platillo, boolean seleccionado, int cantidad);
     }
+
+    public void setPlatillosConCantidad(List<PlatilloComanda> platillosConCantidad) {
+        this.platillosConCantidad = platillosConCantidad;
+    }
+
 
 
     @NonNull

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.SistemaDeComandas"
         tools:targetApi="31">
         <activity
+            android:name=".vistasMeseros.EditarComandaActivity"
+            android:exported="false" />
+        <activity
             android:name=".vistasMeseros.CrearComandaActivity"
             android:exported="false" />
         <activity
