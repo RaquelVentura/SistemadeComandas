@@ -41,6 +41,7 @@ public class VistaPrincipalCocineros extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_vista_principal_cocineros);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
 

@@ -37,6 +37,7 @@ public class CocinerosHomeFragment extends Fragment {
 
         binding = FragmentCocinerosHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        manager = getParentFragmentManager();
 
         btnFiltroPendiente = root.findViewById(R.id.btnPendiente);
         btnFiltroProceso = root.findViewById(R.id.btnEnProceso);

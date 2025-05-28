@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.example.sistemadecomandas.R;
 import com.example.sistemadecomandas.login.LogImActivity;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -34,15 +33,16 @@ public class VistaPrincipalAdminActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarVistaPrincipalAdmin.toolbar);
-        
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_menu, R.id.nav_home, R.id.nav_gallery, R.id.btnCerrarSesion)
-                .setOpenableLayout(drawer)
-                .build();
+                R.id.nav_menu, R.id.nav_home, R.id.nav_gallery, R.id.btnCerrarSesion,
+                R.id.nav_comandas, R.id.nav_meseros
+        ).setOpenableLayout(drawer).build();
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_vista_principal_admin);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -55,11 +55,18 @@ public class VistaPrincipalAdminActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 return true;
-            } else {
-                return NavigationUI.onNavDestinationSelected(item, navController)
-                        || super.onSupportNavigateUp();
             }
+            if (id == R.id.btnCocinerosComandas) {
+                navController.navigate(R.id.nav_comandas);
+                return true;
+            } else if (id == R.id.btnMeserosComandas) {
+                navController.navigate(R.id.nav_meseros);
+                return true;
+            }
+            return NavigationUI.onNavDestinationSelected(item, navController)
+                    || super.onSupportNavigateUp();
         });
+
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("fragment_admin_home")) {
             String destino = intent.getStringExtra("fragment_admin_home");
@@ -67,6 +74,7 @@ public class VistaPrincipalAdminActivity extends AppCompatActivity {
                 NavController navControllerr = Navigation.findNavController(this, R.id.nav_host_fragment_content_vista_principal_admin);
                 navControllerr.navigate(R.id.nav_home);
             }
+
         }
 
     }
