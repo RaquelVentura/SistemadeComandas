@@ -46,7 +46,7 @@ public class MeseroHomeFragment extends Fragment {
 
         binding.recyclerComandas.setLayoutManager(new LinearLayoutManager(getContext()));
         listaComandas = new ArrayList<>();
-        adapter = new ComandaAdapter(listaComandas);
+        adapter = new ComandaAdapter(listaComandas, getContext(), manager);
         binding.recyclerComandas.setAdapter(adapter);
         databaseReference = FirebaseDatabase.getInstance().getReference("Comandas");
 

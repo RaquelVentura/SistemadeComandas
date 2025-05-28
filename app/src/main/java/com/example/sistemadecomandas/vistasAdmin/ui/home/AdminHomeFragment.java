@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdminHomeFragment extends Fragment {
-    private RecyclerView recyclerView;
-    private Button btnNuevoUsuario;
     private GestionUsuarioAdaptador adaptador;
     private List<Usuario> listaUsuarios;
     private FragmentAdminHomeBinding binding;
