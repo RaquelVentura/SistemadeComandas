@@ -3,10 +3,12 @@ package com.example.sistemadecomandas.vistasMeseros;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,6 +33,7 @@ public class EditarComandaActivity extends AppCompatActivity {
     private EditText etNombreCliente, etNota;
     private RecyclerView recyclerPlatillos;
     private Button btnActualizarComanda;
+
 
     private DatabaseReference dbComandas, dbPlatillos;
     private List<Platillo> listaPlatillos = new ArrayList<>();
@@ -163,6 +166,26 @@ public class EditarComandaActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(this, "Error al actualizar comanda", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void confirmarEliminarComanda() {
+        new AlertDialog.Builder(this)
+                .setTitle("Eliminar Comanda")
+                .setMessage("¿Estás seguro de que deseas eliminar esta comanda?")
+                .setPositiveButton("Sí", (dialog, which) -> eliminarComanda())
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
+
+    private void eliminarComanda() {
+        dbComandas.child(comandaActual.getCodigoComanda()).removeValue()
+                .addOnSuccessListener(unused -> {
+                    Toast.makeText(this, "Comanda eliminada correctamente", Toast.LENGTH_SHORT).show();
+                    finish(); // Cierra la pantalla
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Error al eliminar la comanda", Toast.LENGTH_SHORT).show();
                 });
     }
 

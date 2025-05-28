@@ -7,13 +7,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sistemadecomandas.Modelos.Comanda;
 import com.example.sistemadecomandas.R;
 import com.example.sistemadecomandas.vistasMeseros.EditarComandaActivity;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -47,6 +51,27 @@ public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ComandaV
             intent.putExtra("comanda", comanda); // Asegúrate que Comanda implemente Serializable o Parcelable
             context.startActivity(intent);
         });
+
+        holder.btnEliminarComanda.setOnClickListener(v -> {
+            new AlertDialog.Builder(context)
+                    .setTitle("Eliminar Comanda")
+                    .setMessage("¿Estás seguro de que deseas eliminar esta comanda?")
+                    .setPositiveButton("Sí", (dialog, which) -> {
+                        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Comandas");
+                        dbRef.child(comanda.getCodigoComanda()).removeValue()
+                                .addOnSuccessListener(unused -> {
+                                    Toast.makeText(context, "Comanda eliminada", Toast.LENGTH_SHORT).show();
+                                    listaComandas.remove(position);
+                                    notifyItemRemoved(position);
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(context, "Error al eliminar comanda", Toast.LENGTH_SHORT).show();
+                                });
+                    })
+                    .setNegativeButton("Cancelar", null)
+                    .show();
+        });
+
     }
 
     @Override
@@ -56,7 +81,7 @@ public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ComandaV
 
     public static class ComandaViewHolder extends RecyclerView.ViewHolder {
         TextView textCliente, textEstado, textFecha;
-        ImageButton btnEditarComanda;
+        ImageButton btnEditarComanda, btnEliminarComanda;
 
         public ComandaViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,6 +89,8 @@ public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ComandaV
             textEstado = itemView.findViewById(R.id.textEstado);
             textFecha = itemView.findViewById(R.id.textFecha);
             btnEditarComanda = itemView.findViewById(R.id.btnEditarComanda);
+            btnEliminarComanda = itemView.findViewById(R.id.btnEliminarComanda);
+
 
         }
     }
