@@ -34,4 +34,10 @@
     <style name="styleView">
         <item name="android:background">@color/purple_dark_2</item>
     </style>
+
+    <style name="CircularImage" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
 </resources>

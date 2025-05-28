@@ -1,31 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/imagen1">
+    android:background="@color/pastelFondo">
+
+    <ImageView
+        android:id="@+id/logoApp"
+        android:layout_width="271dp"
+        android:layout_height="210dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="54dp"
+        android:src="@drawable/ic_comida"
+        android:contentDescription="Logo"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/textView4"
         style="@style/encabezado1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BIENVENIDO"
-        android:textColor="@color/white"
+        android:text="Bienvenido a \n Tasty Flavors Restaurant"
+        android:textAlignment="center"
+        android:textColor="@color/pastelTexto"
+        android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.158" />
+        app:layout_constraintVertical_bias="0.13" />
 
     <Button
         android:id="@+id/btnAbrirVistaLogin"
-        style="@style/styleButton1"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="324dp"
         android:text="INICIAR"
+        android:elevation="4dp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/pastelPrincipal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
