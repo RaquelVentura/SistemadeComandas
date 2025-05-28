@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="8dp"
     android:elevation="4dp"
     android:padding="12dp">
@@ -26,5 +27,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <ImageButton
+            android:id="@+id/btnEliminarComanda"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="Eliminar Comanda"
+            android:layout_gravity="end"
+            android:src="@drawable/icon_delete"
+            app:tint="@color/black"
+            />
+
+        <ImageButton
+            android:id="@+id/btnEditarComanda"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:src="@drawable/icon_edit"
+            android:contentDescription="Editar"
+            app:tint="@color/black"
+            android:layout_gravity="end"
+            />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,17 +35,15 @@ public class MeseroHomeFragment extends Fragment {
     private DatabaseReference databaseReference;
     private String meseroActual = "mesero1";
     private FragmentMeserosHomeBinding binding;
-    private FragmentManager manager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMeserosHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        manager = getParentFragmentManager();
 
         binding.recyclerComandas.setLayoutManager(new LinearLayoutManager(getContext()));
         listaComandas = new ArrayList<>();
-        adapter = new ComandaAdapter(listaComandas, getContext(), manager);
+        adapter = new ComandaAdapter((getContext()),listaComandas);
         binding.recyclerComandas.setAdapter(adapter);
         databaseReference = FirebaseDatabase.getInstance().getReference("Comandas");
 
