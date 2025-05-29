@@ -49,6 +49,8 @@ import java.util.List;
 
 public class CocinerosHomeFragment extends Fragment implements ComandaAdapter.OnAdjuntarImagenListener {
     private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int PERMISO_NOTIFICACIONES = 123;
+    private static final String CANAL_ID = "canal_comandas";
     private String comandaIdParaSubirImagen;
     private Uri imagenSeleccionada;
     private TextView btnMostrarTodos;
@@ -63,6 +65,7 @@ public class CocinerosHomeFragment extends Fragment implements ComandaAdapter.On
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         crearCanalNotificacion();
+        solicitarPermisoNotificaciones();
 
         binding = FragmentCocinerosHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -102,7 +105,9 @@ public class CocinerosHomeFragment extends Fragment implements ComandaAdapter.On
                 notificacion();
             }
         });
-        btnMostrarTodos.setOnClickListener(v->{adaptador.actualizarLista(listaComandas);});
+        btnMostrarTodos.setOnClickListener(v -> {
+            adaptador.actualizarLista(listaComandas);
+        });
         return root;
     }
 
@@ -152,7 +157,8 @@ public class CocinerosHomeFragment extends Fragment implements ComandaAdapter.On
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Selecciona una imagen"), PICK_IMAGE_REQUEST); }
+        startActivityForResult(Intent.createChooser(intent, "Selecciona una imagen"), PICK_IMAGE_REQUEST);
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -166,6 +172,7 @@ public class CocinerosHomeFragment extends Fragment implements ComandaAdapter.On
             }
         }
     }
+
     private void subirImagenAFirebase(Uri uriImagen, String idComanda) {
         StorageReference storageRef = FirebaseStorage.getInstance().getReference("adjuntos_comandas/" + idComanda);
         String nombreArchivo = System.currentTimeMillis() + ".jpg";
@@ -192,6 +199,7 @@ public class CocinerosHomeFragment extends Fragment implements ComandaAdapter.On
                     }
                 }));
     }
+
     public void notificacion() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
@@ -213,7 +221,6 @@ public class CocinerosHomeFragment extends Fragment implements ComandaAdapter.On
             Log.e("NOTIF_ERROR", "Error mostrando notificación", e);
         }
     }
-    private static final String CANAL_ID = "canal_comandas";
 
     private void crearCanalNotificacion() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -229,11 +236,10 @@ public class CocinerosHomeFragment extends Fragment implements ComandaAdapter.On
             }
         }
     }
-    private static final int PERMISO_NOTIFICACIONES = 123;
 
     private void solicitarPermisoNotificaciones() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, PERMISO_NOTIFICACIONES);
             }
         }
@@ -250,5 +256,4 @@ public class CocinerosHomeFragment extends Fragment implements ComandaAdapter.On
             }
         }
     }
-
 }

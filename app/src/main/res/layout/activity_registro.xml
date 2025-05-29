@@ -51,7 +51,7 @@
                     android:layout_margin="4dp"
                     android:background="@android:color/transparent"
                     android:src="@drawable/baseline_edit_24"
-                    android:tint="@color/pastelPrincipal" />
+                    app:tint="@color/pastelPrincipal" />
             </FrameLayout>
 
             <!-- Título -->

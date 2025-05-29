@@ -30,11 +30,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notificationManager.notify(1002, builder.build());
     }
 
-
     @Override
     public void onNewToken(String token) {
         super.onNewToken(token);
         Log.d(TAG, "Nuevo token: " + token);
-
     }
 }
