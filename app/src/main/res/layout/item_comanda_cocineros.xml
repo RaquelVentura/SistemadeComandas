@@ -1,118 +1,151 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_margin="7dp"
-    android:padding="10dp"
-    android:layout_marginBottom="15dp"
-    android:background="@color/cardview_shadow_start_color"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_margin="12dp"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:background="@color/tarjetaPastel"
+    android:elevation="4dp"
+    android:clipToPadding="false">
+
+    <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtViewNombre"
+            style="@style/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre del Cliente: "
+            android:textColor="@color/pastelTexto" />
 
     <TextView
         android:id="@+id/txtNombreClienteComanda"
-        style="@style/encabezado2"
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Nombre del cliente"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.155"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="@color/textPrincipal"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:paddingBottom="12dp" />
+    </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp">
 
         <TextView
-            android:id="@+id/textViewFecha"
+            android:id="@+id/txtViewFecha"
             style="@style/label"
-            android:layout_width="85dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fecha: " />
+            android:text="Fecha: "
+            android:textColor="@color/pastelTexto" />
 
         <TextView
             android:id="@+id/txtFechaComanda"
             style="@style/label"
-            android:layout_width="297dp"
-            android:layout_height="match_parent"
-            android:text="26 de mayo " />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="26 de mayo"
+            android:textColor="@color/textPrincipal" />
     </LinearLayout>
 
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="85dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/label"
-        android:text="Estado: " />
+        android:orientation="horizontal"
+        android:paddingBottom="4dp">
 
-    <TextView
-        android:id="@+id/txtEstado"
-        android:layout_width="305dp"
-        android:layout_height="22dp"
-        android:text="Pendiente" />
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estado: "
+            android:textColor="@color/pastelTexto" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/txtEstado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pendiente"
+            android:textColor="@color/accentoPastel"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/txtviewnota"
-        android:layout_width="87dp"
-        style="@style/label"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nota: " />
+        android:orientation="horizontal"
+        android:paddingBottom="8dp">
 
-    <TextView
-        android:id="@+id/txtNota"
-        android:layout_width="289dp"
-        android:layout_height="wrap_content"
-        android:text="Nota" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/txtviewnota"
+            style="@style/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nota: "
+            android:textColor="@color/pastelTexto" />
+
+        <TextView
+            android:id="@+id/txtNota"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nota"
+            android:textColor="@color/textPrincipal" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recylerPlatosPorClientes"
         android:layout_width="match_parent"
-        android:layout_height="132dp" />
+        android:layout_height="132dp"
+        android:layout_marginBottom="12dp" />
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
         <Button
             android:id="@+id/btnCambiarEstado"
-            android:layout_width="319dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Iniciar Preparacion" />
+            android:text="Iniciar Preparación"
+            android:backgroundTint="@color/accentoPastel"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:elevation="2dp" />
 
         <ImageButton
             android:id="@+id/btnAdjuntarFotos"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            app:srcCompat="@drawable/icon_adjuntar" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:background="?android:selectableItemBackgroundBorderless"
+            app:srcCompat="@drawable/icon_adjuntar"
+            android:contentDescription="Adjuntar fotos" />
     </LinearLayout>
+
     <TextView
         android:id="@+id/txtMostrarArchivos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Mostrar archivos"
-        android:textColor="@android:color/holo_blue_dark"
-
-        android:paddingTop="5dp"
-        android:textStyle="bold" />
+        android:textColor="@color/accentoPastel"
+        android:textStyle="bold"
+        android:paddingTop="12dp"
+        android:paddingBottom="4dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerAdjuntos"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-
-        android:layout_marginTop="5dp"
         android:orientation="horizontal" />
 </LinearLayout>
