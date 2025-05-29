@@ -62,7 +62,7 @@ public class LogImActivity extends AppCompatActivity {
         txtInicioPass = findViewById(R.id.txtInicioPassword);
         btnACeptar = findViewById(R.id.btnAceptar);
         firebaseAuth = FirebaseAuth.getInstance();
-        btnRecuperarCOntrasenia = findViewById(R.id.btnRcuperarContrasenia);
+        btnRecuperarCOntrasenia = findViewById(R.id.Rec);
         databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
 
         btnRecuperarCOntrasenia.setOnClickListener(new View.OnClickListener() {
