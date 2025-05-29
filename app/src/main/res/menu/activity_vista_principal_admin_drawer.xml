@@ -13,6 +13,14 @@
             android:icon="@drawable/icon_gestion_usuarios"
             android:title="Gestión de usuarios" />
         <item
+            android:id="@+id/btnMeserosComandas"
+            android:icon="@drawable/icon_comandas"
+            android:title="Comandas" />
+        <item
+            android:id="@+id/btnCocinerosComandas"
+            android:icon="@drawable/icon_comandas"
+            android:title="Gestion Comandas" />
+        <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/icon_reportes"
             android:title="Ver reporte" />

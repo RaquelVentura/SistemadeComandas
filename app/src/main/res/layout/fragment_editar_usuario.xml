@@ -3,114 +3,117 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="@color/cardview_shadow_start_color"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/pastelFondo"
+    android:padding="5dp">
 
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="350dp"
-        android:layout_height="635dp"
-        android:background="@drawable/view_style"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="165dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/outline_account_circle_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <ImageButton
-        android:id="@+id/btnEditarImgUsuario"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardEditar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="216dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.707"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/tarjetaPastel"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_edit_24" />
-
-    <TextView
-        android:id="@+id/textView"
-        style="@style/encabezado1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="EDITAR"
-        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.115" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <Button
-        android:id="@+id/btnEdit"
-        style="@style/styleButton1"
-        android:layout_width="285dp"
-        android:layout_height="59dp"
-        android:text="EDITAR"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spEditRoles"
-        app:layout_constraintVertical_bias="0.095" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center_horizontal">
 
-    <Spinner
-        android:id="@+id/spEditRoles"
-        style="@style/encabezado2"
-        android:layout_width="285dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/input_style"
-        android:ems="10"
-        android:paddingLeft="15dp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEditNombreUsuario" />
+            <!-- Imagen circular con botón de edición -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/txtEditNombreUsuario"
-        style="@style/encabezado2"
-        android:layout_width="285dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="284dp"
-        android:background="@drawable/input_style"
-        android:drawableStart="@drawable/outline_account_circle_24"
-        android:ems="10"
-        android:hint="Nombre"
-        android:inputType="text"
-        android:paddingLeft="10dp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textColorHint="#888888"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/outline_account_circle_24"
+                    android:contentDescription="Imagen de usuario"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/CircularImage" />
 
+                <ImageButton
+                    android:id="@+id/btnEditarImgUsuario"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="end|bottom"
+                    android:layout_margin="4dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/baseline_edit_24"
+                    android:tint="@color/pastelPrincipal" />
+            </FrameLayout>
+
+            <!-- Título -->
+            <TextView
+                android:id="@+id/textView"
+                style="@style/encabezado1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Editar Usuario"
+                android:textColor="@color/pastelTexto"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <!-- Campo Nombre -->
+            <EditText
+                android:id="@+id/txtEditNombreUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="24dp"
+                android:layout_margin="15dp"
+                android:hint="Nombre"
+                android:background="@drawable/rounded_input"
+                android:drawableStart="@drawable/outline_account_circle_24"
+                android:paddingStart="16dp"
+                android:textColor="@color/pastelTexto"
+                android:textColorHint="#AAAAAA"
+                android:inputType="text" />
+
+            <!-- Spinner de Roles -->
+            <Spinner
+                android:id="@+id/spEditRoles"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/rounded_input"
+                android:paddingStart="16dp" />
+
+            <!-- Botón Editar -->
+            <Button
+                android:id="@+id/btnEdit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="15dp"
+                android:layout_marginTop="48dp"
+                android:backgroundTint="@color/accentoPastel"
+                android:text="Guardar Cambios"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Botón Volver -->
     <ImageButton
         android:id="@+id/btnVolverGestionUsuarios"
-        android:layout_width="63dp"
-        android:layout_height="37dp"
-        android:background="@drawable/view_style"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.181"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="9dp"
+        android:background="@android:color/transparent"
+        android:src="@android:drawable/ic_menu_revert"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.851"
-        app:srcCompat="@android:drawable/ic_menu_revert" />
-
+        app:layout_constraintTop_toBottomOf="@+id/cardEditar"
+        app:tint="@color/pastelPrincipal" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

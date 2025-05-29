@@ -1,99 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/i">
+    android:background="@color/fondoPastel"
+    android:padding="16dp">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="369dp"
-        android:layout_height="494dp"
-        android:background="@drawable/view_style"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <VideoView
-        android:id="@+id/fondo"
-        android:layout_width="8dp"
-        android:layout_height="21dp"
-        android:layout_gravity="center"
-        android:clickable="false"
-        android:focusable="false"
-        android:keepScreenOn="true"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.056" />
-
-    <TextView
-        android:id="@+id/textView"
-        style="@style/encabezado1"
-        android:layout_width="wrap_content"
+    <!-- Contenedor tipo tarjeta -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardLogin"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Log in"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/tarjetaPastel"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.252" />
-
-    <EditText
-        android:id="@+id/txtInicioPassword"
-        style="@style/encabezado2"
-        android:layout_width="285dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/input_style"
-        android:drawableStart="@drawable/sobre_ic"
-        android:ems="10"
-        android:hint="  Contraseña"
-        android:inputType="textVisiblePassword"
-        android:textColor="@color/white"
-        android:textColorHint="#888888"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtInicioEmail" />
-
-    <Button
-        android:id="@+id/btnAceptar"
-        style="@style/styleButton1"
-        android:layout_width="285dp"
-        android:layout_height="59dp"
-        android:text="LOG IN"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.622" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <EditText
-        android:id="@+id/txtInicioEmail"
-        style="@style/encabezado2"
-        android:layout_width="285dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="52dp"
-        android:background="@drawable/input_style"
-        android:drawableStart="@drawable/icon_email"
-        android:ems="10"
-        android:hint="  Correo electrónico"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/white"
-        android:textColorHint="#888888"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Iniciar Sesión"
+                android:textColor="@color/textPrincipal"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="24dp" />
+
+            <EditText
+                android:id="@+id/txtInicioEmail"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:hint="Correo electrónico"
+                android:inputType="textEmailAddress"
+                android:drawableStart="@drawable/icon_email"
+                android:background="@drawable/edittext_border"
+                android:textColor="@color/textPrincipal"
+                android:textColorHint="@color/hintColor"
+                android:layout_marginBottom="16dp" />
+
+            <EditText
+                android:id="@+id/txtInicioPassword"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:hint="Contraseña"
+                android:inputType="textPassword"
+                android:background="@drawable/edittext_border"
+                android:paddingStart="12dp"
+                android:textColor="@color/textPrincipal"
+                android:textColorHint="@color/hintColor"
+                android:layout_marginBottom="24dp" />
+
+            <Button
+                android:id="@+id/btnAceptar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Ingresar"
+                android:backgroundTint="@color/accentoPastel"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:elevation="2dp" />
+
+            <TextView
+                android:id="@+id/btnRcuperarContrasenia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿Olvidaste tu contraseña?"
+                android:textColor="@color/accentoPastel"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="16dp"
+                android:clickable="true"
+                android:focusable="true" />
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,4 +19,17 @@
     <color name="red_light_3">#F19999</color>
     <color name="red_light_4">#EEEEEE</color>
     <color name="azul">#0087EB</color>
+
+    <color name="fondoPastel">#FFF6F1</color>        <!-- Fondo general -->
+    <color name="tarjetaPastel">#FFFFFF</color>     <!-- Panel central -->
+    <color name="pastelFondo">#FFF8F2</color>
+    <color name="accentoPastel">#FFB6B9</color>     <!-- Botón -->
+    <color name="pastelPrincipal">#FFB6B9</color>
+    <color name="hintColor">#888888</color>
+    <color name="pastelTexto">#5C5C5C</color>
+    <color name="textPrincipal">#444444</color>     <!-- Texto oscuro -->
+
+
+
+
 </resources>
