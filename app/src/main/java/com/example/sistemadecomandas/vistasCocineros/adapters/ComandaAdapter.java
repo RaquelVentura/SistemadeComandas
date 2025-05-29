@@ -1,8 +1,12 @@
 package com.example.sistemadecomandas.vistasCocineros.adapters;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +15,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -72,6 +78,7 @@ public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ComandaV
             String estadoActual = comanda.getEstadoComanda();
             if (estadoActual.equals("pendiente")) {
                 mostrarDialogoCambioEstado("En proceso", comanda.getCodigoComanda(), holder);
+
             } else if (estadoActual.equals("En proceso")) {
                 mostrarDialogoCambioEstado("finalizado", comanda.getCodigoComanda(), holder);
             }
@@ -143,6 +150,7 @@ public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ComandaV
                     holder.txtEstado.setText(nuevoEstado);
                     holder.btnCambiarEstado.setText(getTextoBoton(nuevoEstado));
                     holder.btnCambiarEstado.setBackgroundTintList(ContextCompat.getColorStateList(context, getColorBoton(nuevoEstado)));
+                    notificacion();
                 })
                 .setNegativeButton("Cancelar", null)
                 .show();
@@ -193,6 +201,27 @@ public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ComandaV
         if (index != -1) {
             notifyItemChanged(index);
         }
+    }    public void notificacion() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                Log.w("NOTIF", "Permiso de notificaciones no concedido");
+                return;
+            }
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "canal_comandas")
+                .setSmallIcon(R.drawable.logo)
+                .setContentTitle("Estado actualizado")
+                .setContentText("El estado de una comanda ha cambiado.")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        try {
+            notificationManager.notify(1001, builder.build());
+        } catch (Exception e) {
+            Log.e("NOTIF_ERROR", "Error mostrando notificación", e);
+        }
     }
+
 
 }

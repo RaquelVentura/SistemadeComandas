@@ -84,14 +84,12 @@ public class CocinerosHomeFragment extends Fragment implements ComandaAdapter.On
             @Override
             public void onClick(View v) {
                 filtrarComandasPorEstado("Pendiente");
-                notificacion();
             }
         });
         btnFiltroProceso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 filtrarComandasPorEstado("En proceso");
-                notificacion();
             }
         });
 
@@ -99,7 +97,6 @@ public class CocinerosHomeFragment extends Fragment implements ComandaAdapter.On
             @Override
             public void onClick(View v) {
                 filtrarComandasPorEstado("Finalizado");
-                notificacion();
             }
         });
         btnMostrarTodos.setOnClickListener(v->{adaptador.actualizarLista(listaComandas);});
