@@ -6,6 +6,7 @@ public class Usuario{
     private String correo;
     private String nombre;
     private String rol;
+    private String token;
     public Usuario() {}
 
     public Usuario(String id, String imagen, String correo, String nombre, String rol) {
@@ -14,6 +15,15 @@ public class Usuario{
         this.correo = correo;
         this.nombre = nombre;
         this.rol = rol;
+    }
+
+    public Usuario(String id, String imagen, String correo, String nombre, String rol, String token) {
+        this.id = id;
+        this.imagen = imagen;
+        this.correo = correo;
+        this.nombre = nombre;
+        this.rol = rol;
+        this.token = token;
     }
 
     public String getId() {
@@ -54,5 +64,13 @@ public class Usuario{
 
     public void setRol(String rol) {
         this.rol = rol;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

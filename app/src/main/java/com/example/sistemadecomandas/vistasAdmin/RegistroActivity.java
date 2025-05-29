@@ -3,8 +3,8 @@ package com.example.sistemadecomandas.vistasAdmin;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,7 +43,7 @@ public class RegistroActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
 
-    private String img, nombre, correo, pass, rol;
+    private String img, nombre, correo, pass, rol, token;
     private FirebaseUser usuarioCreado;
 
     @Override
@@ -97,7 +98,6 @@ public class RegistroActivity extends AppCompatActivity {
             Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
-
         if (pass.length() < 6) {
             Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
             return;
@@ -108,23 +108,20 @@ public class RegistroActivity extends AppCompatActivity {
                 usuarioCreado = firebaseAuth.getCurrentUser();
 
                 if (usuarioCreado != null) {
-                    usuarioCreado.sendEmailVerification().addOnCompleteListener(task1 -> {
-                        if (task1.isSuccessful()) {
-                            Toast.makeText(this, "Se envió un correo de verificación", Toast.LENGTH_SHORT).show();
+                    usuarioCreado.sendEmailVerification();
+
+                    FirebaseMessaging.getInstance().getToken().addOnCompleteListener(taskToken -> {
+                        token = (taskToken.isSuccessful()) ? taskToken.getResult() : "";
+
+                        if (imagenUri != null) {
+                            subirImagenYGuardarUsuario(usuarioCreado.getUid());
                         } else {
-                            Toast.makeText(this, "Fallo el envío de verificación", Toast.LENGTH_SHORT).show();
+                            img = "img_por_defecto_usuario";
+                            insertarUsuario();
+                            irAVistaPrincipal();
                         }
                     });
-
-                    if (imagenUri != null) {
-                        subirImagenYGuardarUsuario(usuarioCreado.getUid());
-                    } else {
-                        img = "img_por_defecto_usuario"; // Imagen por defecto
-                        insertarUsuario();
-                        irAVistaPrincipal();
-                    }
                 }
-
             } else {
                 String error = task.getException().getMessage();
                 if (error != null && error.contains("already in use")) {
@@ -169,8 +166,7 @@ public class RegistroActivity extends AppCompatActivity {
 
     private void insertarUsuario() {
         String userId = usuarioCreado.getUid();
-        Usuario nuevoUsuario = new Usuario(userId, img, correo, nombre, rol);
-
+        Usuario nuevoUsuario = new Usuario(userId, img, correo, nombre, rol, token);
         DatabaseReference usuarioRef = FirebaseDatabase.getInstance().getReference("usuarios");
         usuarioRef.child(userId).setValue(nuevoUsuario);
     }

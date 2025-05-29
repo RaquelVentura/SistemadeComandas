@@ -24,8 +24,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class CrearComandaActivity extends AppCompatActivity implements PlatilloAdapterSeleccion.OnPlatilloSeleccionadoListener {
 
@@ -41,7 +43,7 @@ public class CrearComandaActivity extends AppCompatActivity implements PlatilloA
     private DatabaseReference dbPlatillos;
     private DatabaseReference dbComandas;
 
-    private String meseroActual = "mesero1"; // Este puedes pasarlo por intent o session
+    private String meseroActual = "mesero1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,8 +135,20 @@ public class CrearComandaActivity extends AppCompatActivity implements PlatilloA
 
         dbComandas.child(idComanda).setValue(comanda)
                 .addOnSuccessListener(unused -> {
+                    DatabaseReference dbClientes = FirebaseDatabase.getInstance().getReference("clientes");
+
+                    Map<String, Object> cliente = new HashMap<>();
+                    cliente.put("codigoComanda", idComanda);
+                    cliente.put("nombreCliente", nombre);
+
+                    dbClientes.child(idComanda).setValue(cliente)
+                            .addOnSuccessListener(aVoid -> {
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(this, "Error al guardar cliente", Toast.LENGTH_SHORT).show();
+                            });
                     Toast.makeText(this, "Comanda creada", Toast.LENGTH_SHORT).show();
-                    finish(); // volver a la pantalla anterior
+                    finish();
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(this, "Error al guardar comanda", Toast.LENGTH_SHORT).show();
